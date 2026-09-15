@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#f4f0e6">
+  <meta name="description" content="Daily Karma meditation. Five minutes of guided rest and recovery inside a living ink landscape.">
+  <title>Karma · Daily meditation</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f4f0e6'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%239e2b25' stroke-width='3' stroke-dasharray='108 12' transform='rotate(-40 32 32)'/%3E%3C/svg%3E">
+  <link rel="preload" as="image" href="assets/stillness.webp" fetchpriority="high">
+  <link rel="preload" as="font" href="assets/cormorant.woff2" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="styles.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body data-state="home">
+  <svg class="icon-library" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="m9 5 10 7-10 7Z"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M9 5v14M16 5v14"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6 6 12 12M6 18 18 6"/></symbol>
+    <symbol id="i-sound" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4ZM15 8a6 6 0 0 1 0 8M18 5a10 10 0 0 1 0 14"/></symbol>
+    <symbol id="i-muted" viewBox="0 0 24 24"><path d="m11 5-6 4H2v6h3l6 4ZM16 9l6 6M22 9l-6 6"/></symbol>
+    <symbol id="i-captions" viewBox="0 0 24 24"><rect x="2" y="4" width="20" height="16" rx="3"/><path d="M10 9H7v6h3M18 9h-3v6h3"/></symbol>
+    <symbol id="i-headphones" viewBox="0 0 24 24"><path d="M3 14v-3a9 9 0 0 1 18 0v3"/><rect x="3" y="12" width="4" height="8" rx="2"/><rect x="17" y="12" width="4" height="8" rx="2"/></symbol>
+    <symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="3"/><circle cx="15" cy="17" r="3"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="M4 12h15m-6-6 6 6-6 6"/></symbol>
+    <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></symbol>
+  </defs></svg>
+
+  <div class="landscape" aria-hidden="true">
+    <img id="painting" src="assets/stillness.webp" width="1024" height="1536" alt="" fetchpriority="high">
+    <canvas id="scene"></canvas>
+    <div class="paper-veil"></div>
+  </div>
+  <p class="sr-only">An Asian ink painting of misty mountains reflected in a quiet lake, with reeds in the foreground.</p>
+
+  <header class="header">
+    <a class="brand" href="./" aria-label="Karma home"><span class="enso" aria-hidden="true"></span><span>Karma</span></a>
+    <button class="icon-button settings-button" id="settings-open" aria-label="Open meditation settings"><svg><use href="#i-settings"/></svg></button>
+  </header>
+
+  <main>
+    <section id="home" class="screen home-screen" aria-labelledby="home-title">
+      <div class="home-content">
+        <p class="eyebrow">DAILY KARMA MEDITATION</p>
+        <h1 id="home-title">A little stillness.<br><em>A softer day.</em></h1>
+        <p class="intro">Five minutes to soften, restore,<br class="mobile-break"> and begin again.</p>
+        <div class="daily-session">
+          <span class="session-line" aria-hidden="true"></span>
+          <h2>Rest &amp; Recovery</h2>
+          <p>5 min <span aria-hidden="true">·</span> Guided meditation</p>
+        </div>
+        <button id="begin" class="primary"><svg><use href="#i-play"/></svg><span>Begin meditation</span></button>
+        <p id="home-status" class="home-status" role="status"></p>
+      </div>
+      <div class="home-bottom">
+        <p class="headphones"><svg><use href="#i-headphones"/></svg>A quiet moment, just for you.</p>
+        <div class="bottom-links"><button class="text-button" id="about-open">About Karma</button><button class="text-button" id="transcript-open">Read the meditation</button></div>
+      </div>
+    </section>
+
+    <section id="session" class="screen session-screen" aria-labelledby="session-title" hidden>
+      <div class="session-heading"><p class="eyebrow">YOUR DAILY PRACTICE</p><h1 id="session-title">Rest &amp; Recovery</h1><p id="session-message" role="status">Nothing to do. Nowhere to be.</p></div>
+      <button id="resume" class="resume-button" hidden><svg><use href="#i-play"/></svg><span>Resume meditation</span></button>
+      <p id="caption" class="caption" hidden></p>
+      <div class="player-area">
+        <button class="text-button reveal-controls" id="reveal" aria-controls="player-controls" aria-expanded="true">Meditation controls</button>
+        <div id="player-controls" class="player-controls">
+          <button class="icon-button" id="exit" aria-label="Exit meditation"><svg><use href="#i-close"/></svg></button>
+          <button class="icon-button" id="mute" aria-label="Mute audio" aria-pressed="false"><svg><use href="#i-sound"/></svg></button>
+          <div class="progress-wrap">
+            <svg class="progress-ring" viewBox="0 0 72 72" aria-hidden="true"><circle class="ring-track" cx="36" cy="36" r="33"/><circle id="progress-circle" cx="36" cy="36" r="33"/></svg>
+            <button class="play-button" id="pause" aria-label="Pause meditation"><svg><use href="#i-pause"/></svg></button>
+          </div>
+          <button class="icon-button" id="captions" aria-label="Show captions" aria-pressed="false"><svg><use href="#i-captions"/></svg></button>
+          <button class="icon-button" id="session-settings" aria-label="Open meditation settings"><svg><use href="#i-settings"/></svg></button>
+        </div>
+        <div id="progress" class="sr-only" role="progressbar" aria-label="Meditation progress" aria-valuemin="0" aria-valuemax="300" aria-valuenow="0"></div>
+      </div>
+    </section>
+
+    <section id="complete" class="screen complete-screen" aria-labelledby="complete-title" hidden>
+      <div class="completion-content">
+        <span class="enso completion-mark" aria-hidden="true"></span>
+        <p class="eyebrow">TODAY'S PRACTICE COMPLETE</p>
+        <h1 id="complete-title">Rest is an<br><em>act of care.</em></h1>
+        <p>You gave yourself five minutes.<br>Carry one gentle intention into your day.</p>
+        <p id="practice-note" class="practice-note"></p>
+        <button id="done" class="primary">Return to your day<svg><use href="#i-arrow"/></svg></button>
+      </div>
+    </section>
+  </main>
+
+  <dialog id="settings-dialog" aria-labelledby="settings-title">
+    <div class="dialog-top"><p class="eyebrow">MAKE YOURSELF COMFORTABLE</p><button class="icon-button close-dialog" aria-label="Close settings"><svg><use href="#i-close"/></svg></button></div>
+    <h2 id="settings-title">Your quiet,<br><em>your way.</em></h2>
+    <label class="setting-row"><span>English captions<small>Follow the spoken meditation</small></span><input id="captions-setting" type="checkbox" role="switch"></label>
+    <label class="setting-row"><span>Still artwork<small>Turn off landscape movement</small></span><input id="motion-setting" type="checkbox" role="switch"></label>
+    <label class="volume-label" for="volume">Audio volume <span id="volume-value">100%</span></label><input id="volume" type="range" min="0" max="100" value="100">
+    <p class="dialog-note">Your preferences stay on this device.</p>
+  </dialog>
+
+  <dialog id="about-dialog" aria-labelledby="about-title">
+    <div class="dialog-top"><p class="eyebrow">A SMALL DAILY RITUAL</p><button class="icon-button close-dialog" aria-label="Close about"><svg><use href="#i-close"/></svg></button></div>
+    <h2 id="about-title">A moment<br><em>to return to.</em></h2>
+    <p>Karma is a daily invitation to rest. One painting. One guided meditation. Five minutes to give yourself a little care.</p>
+    <p>Rest &amp; Recovery is available every day. Our practice day begins at 1:00 AM Singapore time. Revisit the meditation as often as you like.</p>
+    <p>Your practice history and preferences stay in this browser. No account is needed. Clearing your browser's site data clears this history.</p>
+    <p id="history-note" class="dialog-note"></p>
+  </dialog>
+
+  <dialog id="transcript-dialog" aria-labelledby="transcript-title">
+    <div class="dialog-top"><p class="eyebrow">THE GUIDED MEDITATION</p><button class="icon-button close-dialog" aria-label="Close transcript"><svg><use href="#i-close"/></svg></button></div>
+    <h2 id="transcript-title">Rest &amp;<br><em>Recovery.</em></h2>
+    <div id="transcript-content"><p>Loading the meditation...</p></div>
+  </dialog>
+  <audio id="audio" preload="auto" src="assets/meditation.mp3"><track kind="captions" src="assets/meditation.vtt" srclang="en" label="English"></audio>
+  <noscript><p class="noscript">Please enable JavaScript to use the meditation player. You can also <a href="assets/meditation.mp3">listen to the five-minute audio</a>.</p></noscript>
+</body>
+</html>
