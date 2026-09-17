@@ -26,10 +26,11 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></symbol>
   </defs></svg>
 
-  <div class="landscape" aria-hidden="true">
+  <div class="landscape" aria-label="Interactive artwork. Touch or click the water to make a ripple. Swipe or scroll to move between artwork moments.">
     <img id="painting" src="assets/stillness.webp" width="1024" height="1536" alt="" fetchpriority="high">
-    <canvas id="scene"></canvas>
+    <canvas id="scene" tabindex="0" role="img" aria-label="Interactive ink landscape"></canvas>
     <div class="paper-veil"></div>
+    <div id="artwork-hint" class="artwork-hint" aria-live="polite"><span id="artwork-title">First light</span><span id="artwork-description">Mist lifts from the mountain lake.</span><span id="artwork-dots" aria-hidden="true"><i class="active"></i><i></i><i></i></span></div>
   </div>
   <p class="sr-only">An Asian ink painting of misty mountains reflected in a quiet lake, with reeds in the foreground.</p>
 
@@ -94,6 +95,9 @@
   <dialog id="settings-dialog" aria-labelledby="settings-title">
     <div class="dialog-top"><p class="eyebrow">MAKE YOURSELF COMFORTABLE</p><button class="icon-button close-dialog" aria-label="Close settings"><svg><use href="#i-close"/></svg></button></div>
     <h2 id="settings-title">Your quiet,<br><em>your way.</em></h2>
+    <label class="narrator-label" for="narrator-setting">Narrator</label>
+    <select id="narrator-setting"><option value="derek">Derek · Male voice</option><option value="sarah">Sarah · Female voice</option></select>
+    <p class="narrator-note" id="narrator-status" role="status">Changing narrator restarts the meditation.</p>
     <label class="setting-row"><span>English captions<small>Follow the spoken meditation</small></span><input id="captions-setting" type="checkbox" role="switch"></label>
     <label class="setting-row"><span>Still artwork<small>Turn off landscape movement</small></span><input id="motion-setting" type="checkbox" role="switch"></label>
     <label class="volume-label" for="volume">Narration volume <span id="volume-value">100%</span></label><input id="volume" type="range" min="0" max="100" value="100">

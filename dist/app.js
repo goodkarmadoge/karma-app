@@ -5,7 +5,14 @@ let local;try{local=window.localStorage;}catch{local=null;}
 const store=createStore(local),audio=$('#audio'),motion=matchMedia('(prefers-reduced-motion: reduce)');
 const mixer=new AudioMixer(audio,$('#music-audio'),message=>{$('#music-status').textContent=message;$('#music-status').hidden=!message;});
 let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hideTimer=null,loadTimer=null,raf=null;
+let narratorReady=false,narratorRequest=0;
 const controls=$('#player-controls');
+$('#scene').addEventListener('artworkchange',event=>{
+  const {index,title,description}=event.detail||{};
+  $('#artwork-title').textContent=title||'';$('#artwork-description').textContent=description||'';
+  $('#artwork-dots').querySelectorAll('i').forEach((dot,i)=>dot.classList.toggle('active',i===index));
+  $('#artwork-hint').setAttribute('aria-label',`${title}. ${description} Touch the painting for water ripples, or swipe to change artwork.`);
+});
 const phase=t=>t<58?'Nothing to do. Nowhere to be.':t<111?'Let the breath find its own rhythm.':t<196?'A small act of care.':t<257?'Let yourself rest.':'Carry a little kindness with you.';
 function setState(next){
   state=next;document.body.dataset.state=next;
@@ -28,6 +35,7 @@ function refreshHome(){
   $('#history-note').textContent=store.available?(store.state.days.length?`${store.state.days.length} day${store.state.days.length===1?'':'s'} of practice saved on this device.`:'Your first quiet moment is waiting.'): 'Browser storage is unavailable. You can still meditate; your history will last for this visit only.';
 }
 function syncSettings(){
+  $('#narrator-setting').value=store.state.narrator;
   $('#captions-setting').checked=store.state.captions;$('#motion-setting').checked=store.state.still||motion.matches;
   $('#motion-setting').disabled=motion.matches;
   $('#volume').value=Math.round(store.state.volume*100);$('#volume-value').textContent=`${Math.round(store.state.volume*100)}%`;
@@ -62,6 +70,7 @@ function showControls(autohide=true){
 }
 function fail(){clearTimeout(loadTimer);audio.pause();if(['home','complete'].includes(state))return;setState('error');$('#resume').focus();}
 async function play(fresh=false){
+  if(!narratorReady){await loadNarrator();if(!narratorReady)return;}
   if(state==='loading'||state==='playing')return;
   const id=++attempt;
   if(fresh){audio.currentTime=0;activeDay=karmaDay();completed=false;}
@@ -102,6 +111,12 @@ function setMusicMuted(musicMuted){store.update({musicMuted});syncSettings();if(
 $('#music-toggle').addEventListener('click',()=>setMusicMuted(!store.state.musicMuted));
 $('#music-setting').addEventListener('change',e=>setMusicMuted(!e.target.checked));
 $('#music-volume').addEventListener('input',e=>{store.update({musicVolume:Number(e.target.value)/100,musicMuted:false});syncSettings();});
+$('#narrator-setting').addEventListener('change',e=>{
+  if(e.target.value===store.state.narrator)return;
+  pause();++attempt;audio.pause();mixer.stop();audio.currentTime=0;completed=false;
+  if(!['home','complete'].includes(state))setState('paused');
+  store.update({narrator:e.target.value});syncSettings();void loadNarrator();
+});
 $('#reveal').addEventListener('click',()=>{showControls();$('#pause').focus();});
 $('#session').addEventListener('pointerdown',()=>showControls());controls.addEventListener('focusin',()=>showControls(false));controls.addEventListener('focusout',()=>showControls());
 document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();scene?.setActive(false);}else{scene?.setActive(state==='home');refreshHome();}});
@@ -115,9 +130,26 @@ document.querySelectorAll('.close-dialog').forEach(button=>button.addEventListen
 document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
 document.addEventListener('keydown',e=>{if(e.code==='Space'&&['playing','paused'].includes(state)&&e.target===document.body){e.preventDefault();state==='playing'?pause():play();}});
 motion.addEventListener('change',syncSettings);
-fetch('assets/meditation.json').then(r=>{if(!r.ok)throw Error();return r.json();}).then(data=>{
-  cues=data.cues;$('#transcript-content').replaceChildren(...cues.map(c=>{const p=document.createElement('p');p.className='transcript-cue';const t=document.createElement('time');t.textContent=`${Math.floor(c.start/60)}:${String(c.start%60).padStart(2,'0')}`;p.append(t,document.createTextNode(c.text));return p;}));renderProgress();
-}).catch(()=>{$('#transcript-content').innerHTML='<p>The transcript could not load. Please refresh to try again.</p>';});
+async function loadNarrator(){
+  const id=++narratorRequest,name=store.state.narrator;
+  narratorReady=false;cues=[];
+  $('#narrator-status').textContent='Preparing your narrator...';
+  try{
+    const response=await fetch(`assets/meditation-${name}.json`);
+    if(!response.ok)throw Error();
+    const data=await response.json();if(id!==narratorRequest)return;
+    audio.src=`assets/meditation-${name}.mp3`;
+    audio.querySelector('track').src=`assets/meditation-${name}.vtt`;
+    audio.load();cues=data.cues;narratorReady=true;
+    $('#narrator-status').textContent='Changing narrator restarts the meditation.';
+    $('#transcript-content').replaceChildren(...cues.map(c=>{const p=document.createElement('p');p.className='transcript-cue';const t=document.createElement('time');t.textContent=`${Math.floor(c.start/60)}:${String(c.start%60).padStart(2,'0')}`;p.append(t,document.createTextNode(c.text));return p;}));renderProgress();
+  }catch{
+    if(id!==narratorRequest)return;
+    $('#narrator-status').textContent='This narrator could not load. Choose another narrator or try again.';
+    $('#transcript-content').textContent='The transcript could not load. Please refresh to try again.';
+  }
+}
+void loadNarrator();
 refreshHome();syncSettings();
 const bootScene=()=>import('./scene.js').then(async({KarmaScene})=>{
   scene=new KarmaScene($('#scene'));await scene.init();scene.setReduced(store.state.still||motion.matches);scene.setActive(!document.hidden&&(state==='home'||state==='playing'));

@@ -31,3 +31,9 @@ Three.js is vendored with its MIT license. Artwork and narration were provided/g
 ## Verification
 
 Checked in the Codex in-app browser: playback, updated opening captions, synchronized music, independent music mute, pause/resume, settings, transcript, and mobile layout. Automated checks cover audio duration, cue separation, music fading/ducking, synchronization, settings persistence, daily history, asset references, and the absence of API credentials in the app. An earlier full five-minute browser run verified the completion flow. Physical iOS/Android testing and Lighthouse scoring remain outstanding.
+
+## Narrator selection
+Settings → Narrator offers Derek (male, ElevenLabs TkWPqputI7tf9YDFpxF3) and Sarah (female, EXAVITQu4vr4xnSDxMaL). Both are generated recordings of the same script, including “This is the Daily Karma.” Each lasts five minutes and includes the supplied opening cue. Switching narrators pauses and resets the meditation to the beginning; press Resume to start the selected version. Selection is saved on this device. Each voice has its own timed captions and music ducking cues. Music preferences remain independent.
+
+## Interactive artwork
+The supplied ink painting is rendered through the bundled Three.js scene. On the home screen, scroll or swipe vertically across the painting to move through First light, Deep water, and Reed garden. The transition is a smooth shader interpolation of the same source artwork, preserving the original visual direction. Touch or click anywhere on the painting to send ripples through the lake; dragging across it adds a small breeze to the foreground reeds. Reduced-motion mode keeps the artwork still and disables the animated treatment.
