@@ -63,10 +63,11 @@
       <button id="resume" class="resume-button" hidden><svg><use href="#i-play"/></svg><span>Resume meditation</span></button>
       <p id="caption" class="caption" hidden></p>
       <div class="player-area">
-        <button class="text-button reveal-controls" id="reveal" aria-controls="player-controls" aria-expanded="true">Meditation controls</button>
+        <div class="player-actions"><button class="text-button reveal-controls" id="reveal" aria-controls="player-controls" aria-expanded="true">Meditation controls</button><button class="text-button music-toggle" id="music-toggle" aria-label="Mute background music" aria-pressed="false">Music on</button></div>
+        <p id="music-status" class="music-status" role="status" hidden></p>
         <div id="player-controls" class="player-controls">
           <button class="icon-button" id="exit" aria-label="Exit meditation"><svg><use href="#i-close"/></svg></button>
-          <button class="icon-button" id="mute" aria-label="Mute audio" aria-pressed="false"><svg><use href="#i-sound"/></svg></button>
+          <button class="icon-button" id="mute" aria-label="Mute all audio" aria-pressed="false"><svg><use href="#i-sound"/></svg></button>
           <div class="progress-wrap">
             <svg class="progress-ring" viewBox="0 0 72 72" aria-hidden="true"><circle class="ring-track" cx="36" cy="36" r="33"/><circle id="progress-circle" cx="36" cy="36" r="33"/></svg>
             <button class="play-button" id="pause" aria-label="Pause meditation"><svg><use href="#i-pause"/></svg></button>
@@ -95,7 +96,9 @@
     <h2 id="settings-title">Your quiet,<br><em>your way.</em></h2>
     <label class="setting-row"><span>English captions<small>Follow the spoken meditation</small></span><input id="captions-setting" type="checkbox" role="switch"></label>
     <label class="setting-row"><span>Still artwork<small>Turn off landscape movement</small></span><input id="motion-setting" type="checkbox" role="switch"></label>
-    <label class="volume-label" for="volume">Audio volume <span id="volume-value">100%</span></label><input id="volume" type="range" min="0" max="100" value="100">
+    <label class="volume-label" for="volume">Narration volume <span id="volume-value">100%</span></label><input id="volume" type="range" min="0" max="100" value="100">
+    <label class="setting-row"><span>Background music<small>Soft piano and strings</small></span><input id="music-setting" type="checkbox" role="switch" checked></label>
+    <label class="volume-label" for="music-volume">Music volume <span id="music-volume-value">22%</span></label><input id="music-volume" type="range" min="0" max="100" value="22">
     <p class="dialog-note">Your preferences stay on this device.</p>
   </dialog>
 
@@ -114,6 +117,7 @@
     <div id="transcript-content"><p>Loading the meditation...</p></div>
   </dialog>
   <audio id="audio" preload="auto" src="assets/meditation.mp3"><track kind="captions" src="assets/meditation.vtt" srclang="en" label="English"></audio>
+  <audio id="music-audio" preload="auto" src="assets/rest-and-recovery-music.mp3"></audio>
   <noscript><p class="noscript">Please enable JavaScript to use the meditation player. You can also <a href="assets/meditation.mp3">listen to the five-minute audio</a>.</p></noscript>
 </body>
 </html>

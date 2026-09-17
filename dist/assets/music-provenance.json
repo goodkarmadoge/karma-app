@@ -1,0 +1,9 @@
+{
+  "provider": "ElevenLabs",
+  "endpoint": "https://api.elevenlabs.io/v1/music",
+  "model": "music_v1",
+  "requestedDurationMs": 300000,
+  "instrumental": true,
+  "direction": "Soft felt piano and warm sustained strings; Asian-inspired pentatonic harmony; a serene, flowing water-spa atmosphere; no vocals or percussion.",
+  "generatedDate": "2026-09-17"
+}

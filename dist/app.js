@@ -1,7 +1,9 @@
 import {createStore,karmaDay} from './store.js';
+import {AudioMixer} from './audio-mixer.js';
 const $=s=>document.querySelector(s);
 let local;try{local=window.localStorage;}catch{local=null;}
 const store=createStore(local),audio=$('#audio'),motion=matchMedia('(prefers-reduced-motion: reduce)');
+const mixer=new AudioMixer(audio,$('#music-audio'),message=>{$('#music-status').textContent=message;$('#music-status').hidden=!message;});
 let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hideTimer=null,loadTimer=null,raf=null;
 const controls=$('#player-controls');
 const phase=t=>t<58?'Nothing to do. Nowhere to be.':t<111?'Let the breath find its own rhythm.':t<196?'A small act of care.':t<257?'Let yourself rest.':'Carry a little kindness with you.';
@@ -15,6 +17,7 @@ function setState(next){
   $('#pause').disabled=next==='loading';
   $('#session-message').textContent=next==='loading'?'Preparing your meditation...':next==='error'?'The audio could not play. Please try again.':next==='paused'?'Take your time. We will be here.':phase(audio.currentTime);
   scene?.setActive(next==='home'||next==='playing');
+  mixer.setPlaying(next==='playing');
   if(next==='playing')tick();else if(raf){cancelAnimationFrame(raf);raf=null;}
   if(next!=='playing')showControls(false);
 }
@@ -28,8 +31,11 @@ function syncSettings(){
   $('#captions-setting').checked=store.state.captions;$('#motion-setting').checked=store.state.still||motion.matches;
   $('#motion-setting').disabled=motion.matches;
   $('#volume').value=Math.round(store.state.volume*100);$('#volume-value').textContent=`${Math.round(store.state.volume*100)}%`;
-  audio.volume=store.state.volume;audio.muted=store.state.muted;
-  $('#mute').setAttribute('aria-pressed',String(audio.muted));$('#mute').setAttribute('aria-label',audio.muted?'Unmute audio':'Mute audio');$('#mute use').setAttribute('href',audio.muted?'#i-muted':'#i-sound');
+  mixer.applySettings(store.state);
+  $('#mute').setAttribute('aria-pressed',String(audio.muted));$('#mute').setAttribute('aria-label',audio.muted?'Unmute all audio':'Mute all audio');$('#mute use').setAttribute('href',audio.muted?'#i-muted':'#i-sound');
+  $('#music-setting').checked=!store.state.musicMuted;
+  $('#music-volume').value=Math.round(store.state.musicVolume*100);$('#music-volume-value').textContent=`${Math.round(store.state.musicVolume*100)}%`;
+  $('#music-toggle').textContent=store.state.musicMuted?'Music off':'Music on';$('#music-toggle').setAttribute('aria-pressed',String(store.state.musicMuted));$('#music-toggle').setAttribute('aria-label',store.state.musicMuted?'Unmute background music':'Mute background music');
   $('#captions').setAttribute('aria-pressed',String(store.state.captions));$('#captions').setAttribute('aria-label',store.state.captions?'Hide captions':'Show captions');
   scene?.setReduced(store.state.still||motion.matches);renderProgress();
 }
@@ -39,6 +45,7 @@ function renderProgress(){
   $('#progress').setAttribute('aria-valuenow',String(Math.floor(time)));
   $('#progress').setAttribute('aria-valuetext',`${Math.floor(time/60)} minutes and ${Math.floor(time%60)} seconds of 5 minutes`);
   const cue=cues.find(c=>time>=c.start&&time<c.end);
+  mixer.sync(time,!!cue,state==='playing'&&!audio.paused&&audio.readyState>=3);
   const visible=store.state.captions&&cue&&['playing','paused'].includes(state);
   $('#caption').hidden=!visible;
   if(visible&&$('#caption').textContent!==cue.text)$('#caption').textContent=cue.text;
@@ -62,7 +69,10 @@ async function play(fresh=false){
   setState('loading');renderProgress();
   loadTimer=setTimeout(()=>{if(id===attempt&&state==='loading'){attempt++;fail();}},25000);
   try{
-    await audio.play();
+    const unlocked=mixer.unlock();
+    const voiceStarted=audio.play();
+    void mixer.start(audio.currentTime);
+    await Promise.all([unlocked,voiceStarted]);
     if(id!==attempt)return;
     clearTimeout(loadTimer);
     if(document.hidden){pause();return;}
@@ -88,11 +98,15 @@ $('#captions').addEventListener('click',()=>{store.update({captions:!store.state
 $('#captions-setting').addEventListener('change',e=>{store.update({captions:e.target.checked});syncSettings();});
 $('#motion-setting').addEventListener('change',e=>{store.update({still:e.target.checked});syncSettings();});
 $('#volume').addEventListener('input',e=>{store.update({volume:Number(e.target.value)/100,muted:false});syncSettings();});
+function setMusicMuted(musicMuted){store.update({musicMuted});syncSettings();if(!musicMuted&&state==='playing'&&mixer.failed){void mixer.unlock();void mixer.start(audio.currentTime);mixer.setPlaying(true);}}
+$('#music-toggle').addEventListener('click',()=>setMusicMuted(!store.state.musicMuted));
+$('#music-setting').addEventListener('change',e=>setMusicMuted(!e.target.checked));
+$('#music-volume').addEventListener('input',e=>{store.update({musicVolume:Number(e.target.value)/100,musicMuted:false});syncSettings();});
 $('#reveal').addEventListener('click',()=>{showControls();$('#pause').focus();});
 $('#session').addEventListener('pointerdown',()=>showControls());controls.addEventListener('focusin',()=>showControls(false));controls.addEventListener('focusout',()=>showControls());
 document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();scene?.setActive(false);}else{scene?.setActive(state==='home');refreshHome();}});
 audio.addEventListener('ended',finish);audio.addEventListener('error',fail);audio.addEventListener('timeupdate',renderProgress);
-audio.addEventListener('waiting',()=>{if(state==='playing')$('#session-message').textContent='Taking a moment to load the audio...';});
+audio.addEventListener('waiting',()=>{if(state==='playing'){$('#session-message').textContent='Taking a moment to load the audio...';mixer.setPlaying(false);}});
 audio.addEventListener('pause',()=>{if(state==='playing'&&!audio.ended)setState('paused');});
 for(const [button,dialog] of [['settings-open','settings-dialog'],['session-settings','settings-dialog'],['about-open','about-dialog'],['transcript-open','transcript-dialog']]){
   $('#'+button).addEventListener('click',()=>{if(state==='playing')pause();$('#'+dialog).showModal();});
