@@ -26,13 +26,13 @@
     <symbol id="i-check" viewBox="0 0 24 24"><path d="m5 12 4 4 10-10"/></symbol>
   </defs></svg>
 
-  <div class="landscape" aria-label="Interactive artwork. Touch or click the water to make a ripple. Swipe or scroll to move between artwork moments.">
+  <div class="landscape" aria-label="Interactive artwork. Tap painted trees or water, then swipe or scroll to change paintings.">
     <img id="painting" src="assets/stillness.webp" width="1024" height="1536" alt="" fetchpriority="high">
     <canvas id="scene" tabindex="0" role="img" aria-label="Interactive ink landscape"></canvas>
     <div class="paper-veil"></div>
-    <div id="artwork-hint" class="artwork-hint" aria-live="polite"><span id="artwork-title">First light</span><span id="artwork-description">Mist lifts from the mountain lake.</span><span id="artwork-dots" aria-hidden="true"><i class="active"></i><i></i><i></i></span></div>
+    <div id="artwork-hint" class="artwork-hint" aria-live="polite"><button id="artwork-prev" type="button" aria-label="Previous artwork">‹</button><span id="artwork-title">First light</span><span id="artwork-description">Still water beneath the mountains.</span><span id="artwork-count">1 / 12</span><button id="artwork-next" type="button" aria-label="Next artwork">›</button></div>
   </div>
-  <p class="sr-only">An Asian ink painting of misty mountains reflected in a quiet lake, with reeds in the foreground.</p>
+  <p id="artwork-alt" class="sr-only">An Asian ink painting of misty mountains reflected in a quiet lake, with reeds in the foreground.</p>
 
   <header class="header">
     <a class="brand" href="./" aria-label="Karma home"><span class="enso" aria-hidden="true"></span><span>Karma</span></a>

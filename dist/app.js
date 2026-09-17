@@ -8,11 +8,16 @@ let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hid
 let narratorReady=false,narratorRequest=0;
 const controls=$('#player-controls');
 $('#scene').addEventListener('artworkchange',event=>{
-  const {index,title,description}=event.detail||{};
+  const {index,count,title,description,tone}=event.detail||{};
+  document.body.dataset.artTone=tone?'dark':'light';
   $('#artwork-title').textContent=title||'';$('#artwork-description').textContent=description||'';
-  $('#artwork-dots').querySelectorAll('i').forEach((dot,i)=>dot.classList.toggle('active',i===index));
-  $('#artwork-hint').setAttribute('aria-label',`${title}. ${description} Touch the painting for water ripples, or swipe to change artwork.`);
+  $('#artwork-alt').textContent=`Asian ink painting: ${title}. ${description}`;
+  $('#artwork-count').textContent=`${index+1} / ${count}`;
+  $('#artwork-prev').disabled=index===0;$('#artwork-next').disabled=index===count-1;
+  $('#artwork-hint').setAttribute('aria-label',`${title}. ${description} Tap painted trees or water, or swipe to change artwork.`);
 });
+$('#artwork-prev').addEventListener('click',()=>scene?.shiftArtwork(-1));
+$('#artwork-next').addEventListener('click',()=>scene?.shiftArtwork(1));
 const phase=t=>t<58?'Nothing to do. Nowhere to be.':t<111?'Let the breath find its own rhythm.':t<196?'A small act of care.':t<257?'Let yourself rest.':'Carry a little kindness with you.';
 function setState(next){
   state=next;document.body.dataset.state=next;
