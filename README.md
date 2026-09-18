@@ -2,6 +2,10 @@
 
 A static HTML5 meditation app with Three.js artwork effects and a complete, pre-generated five-minute ElevenLabs meditation. Serve `dist/` using any static HTTP server. No build step or runtime API key is required.
 
+## Vercel deployment
+
+Import this repository in Vercel. `vercel.json` selects the static `dist/` directory and does not run a build command. The published app contains the meditation, its artwork, and self-hosted audio; it does not include the separate ThreeUI motion experiment.
+
 ## Run locally
 
 From this folder, run `python serve.py`, then visit `http://127.0.0.1:4173`. The included server supports byte-range requests, which the audio player needs for reliable music synchronization. Use an HTTP server rather than opening the HTML as a `file://` URL, because the app uses JavaScript modules. A production static host must also support byte-range requests for MP3 files.
