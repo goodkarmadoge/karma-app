@@ -2,6 +2,14 @@
 
 A static HTML5 meditation app with Three.js artwork effects and a complete, pre-generated five-minute ElevenLabs meditation. Serve `dist/` using any static HTTP server. No build step or runtime API key is required.
 
+## Daily guided meditation automation
+
+`.github/workflows/daily-meditation.yml` runs every day at 6:00 AM in `Asia/Singapore` and can also be started manually from GitHub Actions. It rotates through Karma, Patience, Deliberation, Exploration, Equanimity, Non-attachment, Right Effort, and Compassion. Each run writes a new five-minute English practice, generates it with ElevenLabs in both Derek and Sarah voices, preserves the opening cue, and publishes synchronized transcripts and captions.
+
+Add the ElevenLabs credential as the repository Actions secret `ELEVENLABS_API_KEY`. The key is never shipped to the browser or committed to Git. Audio replaces the two files in the stable `daily` GitHub Release, avoiding daily binary growth in Git history. The small dated manifest, transcripts, and captions are committed to `main`, which triggers the connected Vercel production deployment. The app keeps its bundled meditation as a fallback until a daily manifest is available.
+
+Run `node scripts/generate-daily-meditation.mjs --check` to validate and preview today's script without making an API request. A normal run requires FFmpeg and `ELEVENLABS_API_KEY`.
+
 ## Vercel deployment
 
 Import this repository in Vercel. `vercel.json` selects the static `dist/` directory and does not run a build command. The published app contains the meditation, its artwork, and self-hosted audio; it does not include the separate ThreeUI motion experiment.

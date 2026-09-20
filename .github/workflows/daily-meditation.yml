@@ -1,0 +1,62 @@
+name: Daily Guided Meditation
+
+on:
+  schedule:
+    - cron: '0 6 * * *'
+      timezone: 'Asia/Singapore'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: daily-guided-meditation
+  cancel-in-progress: false
+
+jobs:
+  create-and-publish:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+      FORCE_GENERATE: ${{ github.event_name == 'workflow_dispatch' && '1' || '0' }}
+      GH_TOKEN: ${{ github.token }}
+
+    steps:
+      - name: Check out the production branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      - name: Confirm FFmpeg is available
+        run: ffmpeg -version
+
+      - name: Write and generate both narrators
+        run: node scripts/generate-daily-meditation.mjs
+
+      - name: Create the stable daily release
+        run: |
+          gh release view daily >/dev/null 2>&1 || gh release create daily --title "Karma Daily Meditation" --notes "The current five-minute Daily Karma meditation in Derek and Sarah voices." --prerelease
+
+      - name: Upload today's audio
+        run: gh release upload daily .daily-output/meditation-derek.mp3 .daily-output/meditation-sarah.mp3 --clobber
+
+      - name: Publish today's manifest and captions
+        run: |
+          git config user.name "karma-daily[bot]"
+          git config user.email "karma-daily[bot]@users.noreply.github.com"
+          git add dist/assets/daily-meditation.json dist/assets/meditation-derek.json dist/assets/meditation-derek.vtt dist/assets/meditation-sarah.json dist/assets/meditation-sarah.vtt
+          if git diff --cached --quiet; then
+            echo "Daily metadata is already current."
+            exit 0
+          fi
+          title=$(node -p "require('./dist/assets/daily-meditation.json').title")
+          date=$(node -p "require('./dist/assets/daily-meditation.json').date")
+          git commit -m "Publish Daily Karma for ${date}: ${title}"
+          git pull --rebase origin main
+          git push origin HEAD:main

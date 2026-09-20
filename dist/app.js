@@ -6,6 +6,7 @@ const store=createStore(local),audio=$('#audio'),motion=matchMedia('(prefers-red
 const mixer=new AudioMixer(audio,$('#music-audio'),message=>{$('#music-status').textContent=message;$('#music-status').hidden=!message;});
 let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hideTimer=null,loadTimer=null,raf=null;
 let narratorReady=false,narratorRequest=0;
+let daily={date:'',title:'Rest & Recovery',topic:'Karma',audioBaseUrl:'assets'};
 const controls=$('#player-controls');
 $('#scene').addEventListener('artworkchange',event=>{
   const {index,count,title,description,tone}=event.detail||{};
@@ -140,11 +141,12 @@ async function loadNarrator(){
   narratorReady=false;cues=[];
   $('#narrator-status').textContent='Preparing your narrator...';
   try{
-    const response=await fetch(`assets/meditation-${name}.json`);
+    const version=daily.date?`?v=${encodeURIComponent(daily.date)}`:'';
+    const response=await fetch(`assets/meditation-${name}.json${version}`,{cache:'no-store'});
     if(!response.ok)throw Error();
     const data=await response.json();if(id!==narratorRequest)return;
-    audio.src=`assets/meditation-${name}.mp3`;
-    audio.querySelector('track').src=`assets/meditation-${name}.vtt`;
+    audio.src=`${daily.audioBaseUrl||'assets'}/meditation-${name}.mp3${version}`;
+    audio.querySelector('track').src=`assets/meditation-${name}.vtt${version}`;
     audio.load();cues=data.cues;narratorReady=true;
     $('#narrator-status').textContent='Changing narrator restarts the meditation.';
     $('#transcript-content').replaceChildren(...cues.map(c=>{const p=document.createElement('p');p.className='transcript-cue';const t=document.createElement('time');t.textContent=`${Math.floor(c.start/60)}:${String(c.start%60).padStart(2,'0')}`;p.append(t,document.createTextNode(c.text));return p;}));renderProgress();
@@ -154,7 +156,20 @@ async function loadNarrator(){
     $('#transcript-content').textContent='The transcript could not load. Please refresh to try again.';
   }
 }
-void loadNarrator();
+async function loadDailyMeditation(){
+  try{
+    const response=await fetch('assets/daily-meditation.json',{cache:'no-store'});
+    if(!response.ok)throw Error();
+    const data=await response.json();
+    if(!data.date||!data.title||!data.topic)throw Error();
+    daily={...daily,...data};
+    $('#home-daily-title').textContent=daily.title;
+    $('#home-daily-meta').textContent=`${daily.topic} · 5 min guided meditation`;
+    $('#session-title').textContent=daily.title;
+    $('#transcript-title').textContent=`${daily.topic}: ${daily.title}`;
+  }catch{/* The bundled meditation remains available if the daily manifest is temporarily unavailable. */}
+}
+void loadDailyMeditation().then(loadNarrator);
 refreshHome();syncSettings();
 const bootScene=()=>import('./scene.js').then(async({KarmaScene})=>{
   scene=new KarmaScene($('#scene'));await scene.init();scene.setReduced(store.state.still||motion.matches);scene.setActive(!document.hidden&&(state==='home'||state==='playing'));
