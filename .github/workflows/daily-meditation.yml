@@ -33,8 +33,10 @@ jobs:
         with:
           node-version: '22'
 
-      - name: Confirm FFmpeg is available
-        run: ffmpeg -version
+      - name: Install FFmpeg
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes ffmpeg
 
       - name: Write and generate both narrators
         run: node scripts/generate-daily-meditation.mjs
