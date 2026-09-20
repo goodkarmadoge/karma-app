@@ -1,62 +1,66 @@
 {
+  "date": "2026-09-20",
   "durationSeconds": 300,
   "voiceId": "TkWPqputI7tf9YDFpxF3",
   "narrator": "derek",
+  "title": "A Steady Center",
+  "topic": "Equanimity",
+  "tradition": "Buddhist inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 21.468,
-      "text": "This is the Daily Karma. These five minutes are for rest and recovery. Find a position that feels supported. You can sit, or lie down. Let your eyes close, or rest gently on the painting."
+      "end": 17.427,
+      "text": "This is the Daily Karma. Today’s practice is equanimity: a steady center. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 41.474,
-      "text": "Feel the surface beneath you. Let it take a little more of your weight. Soften your jaw. Let your shoulders settle. There is nothing you need to achieve in this moment."
+      "end": 39.152,
+      "text": "Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be."
     },
     {
       "start": 58,
-      "end": 70.678,
-      "text": "Notice one breath arriving, and one breath leaving. Let your breathing find its own comfortable rhythm. If the breath feels difficult to follow, simply notice the support beneath your hands."
+      "end": 66.87,
+      "text": "Notice one breath arriving and one breath leaving. Do not improve it. Let each breath return you to the direct experience of this moment."
     },
     {
       "start": 84,
-      "end": 96.074,
-      "text": "Today, let karma be an invitation to notice intention and action. A small act of care can shape what comes next. For these few minutes, that act is giving yourself room to rest."
+      "end": 90.873,
+      "text": "Equanimity is a balanced heart. It makes room for difficulty and delight without being carried away by either one."
     },
     {
       "start": 111,
-      "end": 122.981,
-      "text": "Picture a quiet lake beneath the mountains. A ripple moves across the water, then softens. You do not need to smooth the surface. Let each thought arrive, and let it move at its own pace."
+      "end": 119.777,
+      "text": "Imagine a mountain reflected in changing water. Wind alters the reflection, while the mountain remains grounded beneath the open sky."
     },
     {
       "start": 140,
-      "end": 153.746,
-      "text": "Bring your attention to your forehead, your shoulders, and your hands. Notice where effort is gathering. If it feels comfortable, release a little. Rest can begin with one small place becoming softer."
+      "end": 148.916,
+      "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 179.378,
-      "text": "You do not have to earn this pause. Nothing about feeling tired makes you less worthy of care. Let the next breath be ordinary. Let your body be here, without asking it to improve."
+      "end": 175.616,
+      "text": "Notice what is pulling you forward or pushing you away. Name it gently, without making it an enemy or a command."
     },
     {
       "start": 196,
-      "end": 206.217,
-      "text": "For a little while, I will be quiet. Feel the support beneath you. When your attention wanders, return gently. That return is another small act of kindness."
+      "end": 204.684,
+      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
     },
     {
       "start": 235,
-      "end": 243.963,
-      "text": "Still here. Still supported. Notice what this moment feels like, even if nothing has changed. There is no particular feeling you need to have."
+      "end": 242.895,
+      "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 267.96,
-      "text": "Choose one gentle action to carry into the day. A slower beginning. A glass of water. A moment before you answer. Let care for yourself shape the care you offer next."
+      "end": 264.43,
+      "text": "Meet one changing moment with a steady response. Pause, feel your feet, and choose the action that respects the whole situation."
     },
     {
       "start": 283,
-      "end": 291.127,
-      "text": "Feel the room around you. Move your fingers when you are ready. Let your eyes open gently. Thank you for resting with Karma."
+      "end": 290.43,
+      "text": "Feel the room around you. Move your fingers when you are ready. Let your eyes open gently. Thank you for practicing with Karma."
     }
   ]
 }

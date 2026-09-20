@@ -1,0 +1,19 @@
+{
+  "date": "2026-09-20",
+  "title": "A Steady Center",
+  "topic": "Equanimity",
+  "tradition": "Buddhist inspired practice",
+  "durationSeconds": 300,
+  "generatedAt": "2026-09-20T02:21:09.266Z",
+  "audioBaseUrl": "https://github.com/goodkarmadoge/karma-app/releases/download/daily",
+  "narrators": {
+    "derek": {
+      "label": "Derek",
+      "voiceId": "TkWPqputI7tf9YDFpxF3"
+    },
+    "sarah": {
+      "label": "Sarah",
+      "voiceId": "EXAVITQu4vr4xnSDxMaL"
+    }
+  }
+}
