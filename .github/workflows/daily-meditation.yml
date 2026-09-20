@@ -24,12 +24,12 @@ jobs:
 
     steps:
       - name: Check out the production branch
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
 
@@ -39,13 +39,22 @@ jobs:
           sudo apt-get install --yes ffmpeg
 
       - name: Write and generate both narrators
-        run: node scripts/generate-daily-meditation.mjs
+        id: generate
+        run: |
+          node scripts/generate-daily-meditation.mjs
+          if [[ -f .daily-output/meditation-derek.mp3 && -f .daily-output/meditation-sarah.mp3 ]]; then
+            echo "generated=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "generated=false" >> "$GITHUB_OUTPUT"
+          fi
 
       - name: Create the stable daily release
+        if: steps.generate.outputs.generated == 'true'
         run: |
           gh release view daily >/dev/null 2>&1 || gh release create daily --title "Karma Daily Meditation" --notes "The current five-minute Daily Karma meditation in Derek and Sarah voices." --prerelease
 
       - name: Upload today's audio
+        if: steps.generate.outputs.generated == 'true'
         run: gh release upload daily .daily-output/meditation-derek.mp3 .daily-output/meditation-sarah.mp3 --clobber
 
       - name: Publish today's manifest and captions

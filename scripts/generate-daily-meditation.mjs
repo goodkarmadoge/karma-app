@@ -90,19 +90,46 @@ function themeFor(date) {
   return themes[((day % themes.length) + themes.length) % themes.length];
 }
 
-function scriptFor(theme) {
+const settleVariations = [
+  'Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be.',
+  'Notice the weight of your body being held. Let the tongue rest and the shoulders fall. Allow this moment to ask nothing from you.',
+  'Feel where your body meets the chair or floor. Soften your hands. Give gravity permission to carry a little more of your weight.',
+  'Settle into a position that can support both ease and alertness. Relax the muscles around your eyes and let the day become quieter.',
+];
+
+const breathVariations = [
+  'Notice one breath arriving and one breath leaving. Do not improve it. Let each breath return you to the direct experience of this moment.',
+  'Follow the next inhale from its beginning, then the exhale to its end. Let the breath be natural, unforced, and entirely enough.',
+  'Feel the quiet rhythm of breathing. When the mind moves ahead, come back to one simple inhale and one unhurried exhale.',
+  'Place attention where breathing feels clearest: the nose, chest, or belly. Receive each breath without needing to hold on to it.',
+];
+
+const silenceVariations = [
+  'For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience.',
+  'Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them.',
+  'I will leave some quiet here. You do not need to empty the mind. Notice what appears, release the story, and return to breathing.',
+];
+
+const closingVariations = [
+  'Feel the room around you. Move your fingers when you are ready. Let your eyes open gently. Thank you for practicing with Karma.',
+  'Notice the sounds around you. Invite movement back into your hands and feet. Open your eyes softly. Thank you for meeting this day with Karma.',
+  'Take one fuller breath. Feel the space beyond your body and let your eyes open in their own time. Thank you for practicing with Karma.',
+  'Return awareness to the room. Move slowly, keeping a trace of this steadiness with you. When ready, open your eyes. Thank you for practicing with Karma.',
+];
+
+function scriptFor(theme, dayNumber) {
   return [
     `This is the Daily Karma. Today’s practice is ${theme.topic.toLowerCase()}: ${theme.title.toLowerCase()}. Find a supported position. Let your eyes close, or rest gently on the painting.`,
-    'Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be.',
-    'Notice one breath arriving and one breath leaving. Do not improve it. Let each breath return you to the direct experience of this moment.',
+    settleVariations[dayNumber % settleVariations.length],
+    breathVariations[Math.floor(dayNumber / settleVariations.length) % breathVariations.length],
     theme.principle,
     theme.image,
     'Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present.',
     theme.inquiry,
-    'For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience.',
+    silenceVariations[dayNumber % silenceVariations.length],
     'Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life.',
     theme.action,
-    'Feel the room around you. Move your fingers when you are ready. Let your eyes open gently. Thank you for practicing with Karma.',
+    closingVariations[Math.floor(dayNumber / themes.length) % closingVariations.length],
   ];
 }
 
@@ -187,8 +214,9 @@ async function buildNarrator(voice, texts, openingPcm) {
 
 async function main() {
   const date = singaporeDate();
+  const dayNumber = Math.floor(Date.parse(`${date}T00:00:00Z`) / 86400000);
   const theme = themeFor(date);
-  const texts = scriptFor(theme);
+  const texts = scriptFor(theme, dayNumber);
   if (texts.length !== CUE_STARTS.length || texts.some(text => !text.trim())) throw new Error('Meditation template is incomplete');
 
   if (process.argv.includes('--check')) {
