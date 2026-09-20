@@ -141,7 +141,8 @@ async function loadNarrator(){
   narratorReady=false;cues=[];
   $('#narrator-status').textContent='Preparing your narrator...';
   try{
-    const version=daily.date?`?v=${encodeURIComponent(daily.date)}`:'';
+    const assetVersion=daily.generatedAt||daily.date;
+    const version=assetVersion?`?v=${encodeURIComponent(assetVersion)}`:'';
     const response=await fetch(`assets/meditation-${name}.json${version}`,{cache:'no-store'});
     if(!response.ok)throw Error();
     const data=await response.json();if(id!==narratorRequest)return;
