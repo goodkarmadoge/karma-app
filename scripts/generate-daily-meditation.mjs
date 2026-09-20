@@ -14,7 +14,7 @@ const CUE_STARTS = [8, 32, 58, 84, 111, 140, 168, 196, 235, 257, 283];
 const RELEASE_BASE = 'https://github.com/goodkarmadoge/karma-app/releases/download/daily';
 
 const voices = [
-  { narrator: 'derek', label: 'Derek', voiceId: 'TkWPqputI7tf9YDFpxF3' },
+  { narrator: 'derek', label: 'Derek', voiceId: '0X63EirRQmRS0K8fLhOQ' },
   { narrator: 'sarah', label: 'Sarah', voiceId: 'EXAVITQu4vr4xnSDxMaL' },
 ];
 
