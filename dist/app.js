@@ -52,6 +52,8 @@ function setState(next){
   $('#pause').disabled=next==='loading';
   $('#session-message').textContent=next==='loading'?'Preparing your meditation...':next==='error'?'The audio could not play. Please try again.':next==='paused'?'Take your time. We will be here.':phase(audio.currentTime);
   scene?.setActive(next==='home'||next==='playing');
+  // The scene keeps its own clock; these only choose how much of it breathes.
+  if(next==='home')scene?.idle();else if(next==='complete')scene?.settle();
   mixer.setPlaying(next==='playing');
   updateMediaPlayback();
   if(next==='playing')tick();else if(raf){cancelAnimationFrame(raf);raf=null;}

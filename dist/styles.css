@@ -114,3 +114,12 @@ body[data-art-tone='dark'] .header,body[data-art-tone='dark'] .header .text-butt
 body[data-art-tone='dark'] .settings-button{border-color:rgba(245,241,231,.38)}
 body[data-art-tone='dark'] .header .icon-button:hover{background:rgba(245,241,231,.12)}
 body[data-art-tone='dark'] .header .text-button:focus-visible,body[data-art-tone='dark'] .header .icon-button:focus-visible{outline-color:#f5f1e7}
+
+/* The handscroll mounts each painting bottom-anchored on paper rather than
+   filling the screen, so the still fallback underneath has to agree with it. */
+.landscape{background:var(--paper)}
+.landscape img{object-fit:contain;object-position:50% 100%}
+@media(max-width:600px){.landscape img{object-fit:contain;object-position:50% 100%}}
+@media(min-width:1000px){.landscape img{object-position:50% 100%}}
+.landscape canvas{cursor:grab}
+.landscape canvas:active{cursor:grabbing}
