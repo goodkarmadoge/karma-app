@@ -8,6 +8,19 @@ let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hid
 let narratorReady=false,narratorRequest=0;
 let daily={date:'',title:'Rest & Recovery',topic:'Karma',audioBaseUrl:'assets'};
 const controls=$('#player-controls');
+const interfaceToggle=$('#interface-toggle');
+const interfaceElements=document.querySelectorAll('.header, main, #artwork-hint, dialog');
+let interfaceHidden=false;
+interfaceToggle.addEventListener('click',()=>{
+  interfaceHidden=!interfaceHidden;
+  // Keep the artwork and audio running; block every hidden control immediately.
+  interfaceToggle.focus({preventScroll:true});
+  for(const element of interfaceElements)element.inert=interfaceHidden;
+  document.body.classList.toggle('interface-hidden',interfaceHidden);
+  interfaceToggle.textContent=interfaceHidden?'Show':'Hide';
+  interfaceToggle.setAttribute('aria-label',interfaceHidden?'Show interface':'Hide interface');
+  interfaceToggle.setAttribute('aria-pressed',String(interfaceHidden));
+});
 $('#scene').addEventListener('artworkchange',event=>{
   const {index,count,title,description,tone}=event.detail||{};
   document.body.dataset.artTone=tone?'dark':'light';
@@ -134,7 +147,7 @@ for(const [button,dialog] of [['settings-open','settings-dialog'],['session-sett
 }
 document.querySelectorAll('.close-dialog').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
-document.addEventListener('keydown',e=>{if(e.code==='Space'&&['playing','paused'].includes(state)&&e.target===document.body){e.preventDefault();state==='playing'?pause():play();}});
+document.addEventListener('keydown',e=>{if(!interfaceHidden&&e.code==='Space'&&['playing','paused'].includes(state)&&e.target===document.body){e.preventDefault();state==='playing'?pause():play();}});
 motion.addEventListener('change',syncSettings);
 async function loadNarrator(){
   const id=++narratorRequest,name=store.state.narrator;

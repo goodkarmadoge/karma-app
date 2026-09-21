@@ -22,3 +22,12 @@ body:not([data-state='home']) .settings-button{visibility:hidden}body[data-state
 .artwork-hint{pointer-events:auto;gap:10px}.artwork-hint button{width:30px;height:30px;border-radius:50%;background:#faf8f0b8;font-family:var(--serif);font-size:24px;line-height:1;color:#455142}.artwork-hint button:disabled{opacity:.35;cursor:default}.artwork-hint #artwork-count{font-size:10px;letter-spacing:.1em;color:#646c5d}.artwork-hint #artwork-description{max-width:230px;overflow:hidden;text-overflow:ellipsis}
 body[data-art-tone='dark'] .home-bottom{color:#f5f1e7;text-shadow:0 1px 5px #141b20}body[data-art-tone='dark'] .home-bottom .text-button{color:#f5f1e7;text-shadow:0 1px 5px #141b20}body[data-art-tone='dark'] .home-bottom .text-button:focus-visible{outline-color:#f5f1e7}
 .narrator-label{display:block;font-size:14px;margin-bottom:10px}#narrator-setting{width:100%;min-height:48px;padding:10px 14px;border:1px solid #9a9d8d;border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;touch-action:manipulation}#narrator-setting:focus-visible{outline:2px solid var(--accent);outline-offset:3px}.narrator-note{font-size:12px;color:var(--muted);line-height:1.5;margin:9px 0 18px}
+
+/* Artwork-only mode: visibility and inert prevent pointer and keyboard interaction. */
+.interface-toggle{position:fixed;z-index:6;top:calc(8px + env(safe-area-inset-top));left:calc(8px + env(safe-area-inset-left));min-width:54px;min-height:44px;padding:8px 12px;border:1px solid #818a7040;border-radius:22px;background:#f4f0e6e8;color:var(--ink);font-size:12px}
+.header .brand{margin-left:38px}
+body.interface-hidden .header,body.interface-hidden main,body.interface-hidden #artwork-hint,body.interface-hidden dialog{visibility:hidden!important;opacity:0!important;pointer-events:none!important}
+body.interface-hidden .header *,body.interface-hidden main *,body.interface-hidden #artwork-hint *,body.interface-hidden dialog *{visibility:hidden!important;pointer-events:none!important}
+body.interface-hidden .paper-veil{opacity:0}
+.player-controls.concealed,.player-controls.concealed *{visibility:hidden;pointer-events:none!important}
+body:not([data-state='home']) #artwork-hint,body:not([data-state='home']) #artwork-hint *{visibility:hidden;pointer-events:none!important}
