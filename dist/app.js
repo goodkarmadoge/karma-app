@@ -64,6 +64,8 @@ function refreshHome(){
 }
 function syncSettings(){
   $('#narrator-setting').value=store.state.narrator;
+  const chosen=$('#narrator-setting').selectedOptions[0];
+  if(chosen)$('#voice-guide').textContent=chosen.textContent.split(String.fromCharCode(0xB7))[0].trim();
   $('#captions-setting').checked=store.state.captions;$('#motion-setting').checked=store.state.still||motion.matches;
   $('#motion-setting').disabled=motion.matches;
   $('#volume').value=Math.round(store.state.volume*100);$('#volume-value').textContent=`${Math.round(store.state.volume*100)}%`;
@@ -155,7 +157,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();sc
 audio.addEventListener('ended',finish);audio.addEventListener('error',fail);audio.addEventListener('timeupdate',renderProgress);
 audio.addEventListener('waiting',()=>{if(state==='playing'){$('#session-message').textContent='Taking a moment to load the audio...';mixer.setPlaying(false);}});
 audio.addEventListener('pause',()=>{if(state==='playing'&&!audio.ended)setState('paused');});
-for(const [button,dialog] of [['settings-open','settings-dialog'],['session-settings','settings-dialog'],['about-open','about-dialog'],['transcript-open','transcript-dialog'],['signin-open','signin-dialog'],['account-signin','signin-dialog']]){
+for(const [button,dialog] of [['settings-open','settings-dialog'],['narrator-open','settings-dialog'],['session-settings','settings-dialog'],['about-open','about-dialog'],['transcript-open','transcript-dialog'],['signin-open','signin-dialog'],['account-signin','signin-dialog']]){
   $('#'+button).addEventListener('click',()=>{if(state==='playing')pause();if(dialog==='settings-dialog')renderStreaks();$('#'+dialog).showModal();});
 }
 document.querySelectorAll('.close-dialog').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));

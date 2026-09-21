@@ -46,3 +46,71 @@ body:not([data-state='home']) #artwork-hint,body:not([data-state='home']) #artwo
 #boundary-setting{width:100%;min-height:48px;padding:10px 14px;border:1px solid #9a9d8d;border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;touch-action:manipulation}#boundary-setting:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
 /* Turning the streak off puts the whole apparatus away rather than leaving a dead panel. */
 #streak-panel[hidden]{display:none}
+
+/* Home redesign: a near-opaque card carries the words, so the painting behind it
+   can stay a painting rather than a washed-out backdrop. */
+@font-face{font-family:Jost;src:url('./assets/jost-400.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:Jost;src:url('./assets/jost-500.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+:root{--sans-geo:Jost,'Avenir Next',Avenir,'Century Gothic',ui-sans-serif,system-ui,sans-serif;--card:247,245,240;--card-ink:#282b26;--card-muted:#5b6053;--card-accent:#515948;--card-edge:rgba(22,22,20,.09);--pill-edge:rgba(41,44,39,.26);--card-shadow:0 18px 44px -22px rgba(30,28,22,.55)}
+/* Two of the paintings are night scenes. There the same card is ink, not paper. */
+body[data-art-tone='dark']{--card:22,24,29;--card-ink:#f2efe6;--card-muted:#c2c7bc;--card-accent:#cfd6c4;--card-edge:rgba(244,240,230,.12);--pill-edge:rgba(244,240,230,.32);--card-shadow:0 18px 48px -20px rgba(0,0,0,.6)}
+
+.home-content{max-width:min(100%,34rem);margin:0 auto;padding:26px 26px 20px;border-radius:22px;color:var(--card-ink);background:rgba(var(--card),.94);box-shadow:inset 0 0 0 1px var(--card-edge),var(--card-shadow);backdrop-filter:blur(20px) saturate(112%);-webkit-backdrop-filter:blur(20px) saturate(112%);transition:background-color .6s ease,box-shadow .6s ease}
+.home-content h1,.home-content .daily-session h2{color:var(--card-ink)}
+.home-content h1 em,.home-content h2 em{color:var(--card-accent)}
+.home-content .eyebrow,.home-content .intro,.home-content #home-daily-meta,.home-content .home-status{color:var(--card-muted)}
+.home-content .session-line{background:var(--pill-edge)}
+/* The card sits higher so the foreground of the painting is never cut off inside it. */
+.home-screen{padding-top:96px;justify-content:flex-start}
+
+/* Small metadata moves to a geometric sans; the serif keeps the titles. */
+.eyebrow,.home-status,#home-daily-meta,.practice-note,.headphones,.text-button,.interface-toggle,.painting-eyebrow,#artwork-count,#artwork-description,.calendar-weekdays,.calendar-month,.stats-row dt,.volume-label span,.narrator-note,.dialog-note,.music-status,.reveal-controls,.music-toggle,.streak-line,.narrator-label,.setting-row small{font-family:var(--sans-geo)}
+.eyebrow{font-weight:500;letter-spacing:.2em}
+#home-daily-meta,.home-status,.practice-note{font-weight:400;letter-spacing:.02em}
+.calendar-weekdays,.stats-row dt{font-weight:500;letter-spacing:.16em}
+
+/* The painting name gets its own pill so dark foliage cannot swallow it, and the
+   pagination arrows get circular targets of their own. */
+.artwork-hint{background:none;border:0;padding:0;backdrop-filter:none;-webkit-backdrop-filter:none;gap:10px;white-space:normal}
+.painting-badge{display:inline-grid;grid-template-columns:auto auto;align-items:center;column-gap:14px;row-gap:1px;padding:7px 16px 8px;border-radius:999px;background:rgba(var(--card),.86);box-shadow:inset 0 0 0 1px var(--card-edge),0 10px 26px -18px rgba(30,28,22,.7);backdrop-filter:blur(14px) saturate(110%);-webkit-backdrop-filter:blur(14px) saturate(110%)}
+.painting-eyebrow{grid-column:1;grid-row:1;justify-self:start;white-space:nowrap;font-weight:500;font-size:9px;letter-spacing:.2em;color:var(--card-muted)}
+.artwork-hint #artwork-count{grid-column:2;grid-row:1;justify-self:end;white-space:nowrap;font-weight:500;font-size:9px;letter-spacing:.16em;color:var(--card-muted)}
+.painting-name{grid-column:1/-1;grid-row:2;display:inline-flex;align-items:baseline;justify-content:center;gap:8px;flex-wrap:nowrap;min-width:0}
+.artwork-hint #artwork-title{font-family:var(--serif);font-size:19px;line-height:1.2;color:var(--card-ink);white-space:nowrap;flex:none}
+.artwork-hint #artwork-description{font-size:11px;color:var(--card-muted);flex:0 1 auto;min-width:0;max-width:230px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.artwork-hint button{width:44px;height:44px;border-radius:50%;background:rgba(var(--card),.74);box-shadow:inset 0 0 0 1px var(--card-edge),0 8px 20px -14px rgba(30,28,22,.7);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);color:var(--card-ink);font-size:26px;transition:background-color .2s}
+.artwork-hint button:hover:not(:disabled){background:rgba(var(--card),.9)}
+.artwork-hint button:disabled{opacity:.5}
+
+/* The narrator used to be reachable only from Settings. Now it reads as a control. */
+.voice-link{display:inline-flex;align-items:center;gap:10px;margin:13px auto 0;padding:0 4px 0 14px;min-height:44px;border-radius:999px;background:transparent;color:var(--card-muted);font-family:var(--sans-geo);font-size:13px}
+.voice-link-label #voice-guide{color:var(--card-ink);font-weight:500}
+.voice-link-action{display:inline-flex;align-items:center;gap:4px;padding:7px 10px 7px 13px;border-radius:999px;box-shadow:inset 0 0 0 1px var(--pill-edge);font-size:10px;font-weight:500;letter-spacing:.16em;color:var(--card-ink);transition:background-color .2s}
+.voice-link-action svg{width:13px;height:13px;stroke-width:2.2}
+.voice-link:hover .voice-link-action{background:rgba(41,44,39,.07)}
+body[data-art-tone='dark'] .voice-link:hover .voice-link-action{background:rgba(244,240,230,.12)}
+
+/* With the card doing the legibility work, the wide veil can lift off the artwork. */
+@media(min-width:601px){
+body[data-state='home'] .paper-veil{background:linear-gradient(180deg,rgba(244,240,230,.6),rgba(244,240,230,.34) 34%,rgba(244,240,230,0) 62%)}
+.home-content{padding:30px 34px 24px}
+}
+@media(max-width:600px){
+.home-screen{padding-top:calc(88px + env(safe-area-inset-top))}
+.home-content{padding:22px 20px 18px;border-radius:20px}
+.artwork-hint{gap:6px;max-width:calc(100% - 12px)}.artwork-hint button{width:42px;height:42px;font-size:24px}.painting-badge{column-gap:10px;padding:6px 14px 7px}
+.artwork-hint #artwork-title{font-size:17px}
+.voice-link{font-size:12px;padding-left:12px}
+}
+@media(max-height:700px){
+.home-screen{padding-top:72px}
+.home-content{padding:18px 20px 14px}
+.voice-link{margin-top:9px}
+}
+
+/* On the night paintings the header was ink on ink. Lift it the same way the
+   bottom links are already lifted. */
+body[data-art-tone='dark'] .header,body[data-art-tone='dark'] .header .text-button{color:#f5f1e7;text-shadow:0 1px 5px #141b20}
+body[data-art-tone='dark'] .settings-button{border-color:rgba(245,241,231,.38)}
+body[data-art-tone='dark'] .header .icon-button:hover{background:rgba(245,241,231,.12)}
+body[data-art-tone='dark'] .header .text-button:focus-visible,body[data-art-tone='dark'] .header .icon-button:focus-visible{outline-color:#f5f1e7}
