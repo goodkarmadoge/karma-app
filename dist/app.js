@@ -1,8 +1,9 @@
 import {createStore,karmaDay} from './store.js';
 import {AudioMixer} from './audio-mixer.js';
+import {createAccount} from './account.js';
 const $=s=>document.querySelector(s);
 let local;try{local=window.localStorage;}catch{local=null;}
-const store=createStore(local),audio=$('#audio'),motion=matchMedia('(prefers-reduced-motion: reduce)');
+const store=createStore(local),account=createAccount(),audio=$('#audio'),motion=matchMedia('(prefers-reduced-motion: reduce)');
 const mixer=new AudioMixer(audio,$('#music-audio'),message=>{$('#music-status').textContent=message;$('#music-status').hidden=!message;});
 let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hideTimer=null,loadTimer=null,raf=null;
 let narratorReady=false,narratorRequest=0;
@@ -115,6 +116,7 @@ function exit(){++attempt;clearTimeout(loadTimer);audio.pause();audio.currentTim
 function finish(){
   if(completed||activeDay===null||audio.currentTime<299.8)return;
   completed=true;const added=store.complete(activeDay);setState('complete');
+  account.recordCompletion(activeDay).catch(()=>{});
   $('#practice-note').textContent=added?(store.streak(activeDay)>1?`${store.streak(activeDay)} days of making space for yourself.`:'A small beginning. A little more space.'):'Another quiet moment, just for you.';
   $('#complete-title').setAttribute('tabindex','-1');$('#complete-title').focus({preventScroll:true});refreshHome();
 }
@@ -142,7 +144,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();sc
 audio.addEventListener('ended',finish);audio.addEventListener('error',fail);audio.addEventListener('timeupdate',renderProgress);
 audio.addEventListener('waiting',()=>{if(state==='playing'){$('#session-message').textContent='Taking a moment to load the audio...';mixer.setPlaying(false);}});
 audio.addEventListener('pause',()=>{if(state==='playing'&&!audio.ended)setState('paused');});
-for(const [button,dialog] of [['settings-open','settings-dialog'],['session-settings','settings-dialog'],['about-open','about-dialog'],['transcript-open','transcript-dialog']]){
+for(const [button,dialog] of [['settings-open','settings-dialog'],['session-settings','settings-dialog'],['about-open','about-dialog'],['transcript-open','transcript-dialog'],['signin-open','signin-dialog'],['account-signin','signin-dialog']]){
   $('#'+button).addEventListener('click',()=>{if(state==='playing')pause();$('#'+dialog).showModal();});
 }
 document.querySelectorAll('.close-dialog').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
@@ -183,8 +185,66 @@ async function loadDailyMeditation(){
     $('#transcript-title').textContent=`${daily.topic}: ${daily.title}`;
   }catch{/* The bundled meditation remains available if the daily manifest is temporarily unavailable. */}
 }
+// Signing in is an addition, never a gate: everything here reads the local
+// record first and lets the account catch up behind it.
+const EMAIL=/^[^s@]+@[^s@]+.[^s@]+$/;
+let syncedFor=null;
+function signinError(message){$('#signin-error').textContent=message;$('#signin-error').hidden=!message;}
+function resetSigninForm(){$('#signin-form').hidden=false;$('#signin-sent').hidden=true;signinError('');$('#signin-submit').disabled=false;$('#signin-submit').textContent='Send my link';}
+function renderGreeting({signedIn,firstName}){
+  const name=signedIn?firstName:null;
+  $('#home-eyebrow').textContent=name?(store.state.days.length?`WELCOME BACK, ${name.toUpperCase()}`:`WELCOME, ${name.toUpperCase()}`):'DAILY KARMA MEDITATION';
+}
+async function syncAccount(userId){
+  if(syncedFor===userId)return;
+  syncedFor=userId;
+  const days=await account.sync(store.switchAccount(userId));
+  if(days)store.adopt(days);
+  refreshHome();renderGreeting(account.snapshot);
+}
+account.onChange(snap=>{
+  $('#signin-open').hidden=!snap.available||snap.signedIn;
+  $('#account-out').hidden=snap.signedIn;$('#account-in').hidden=!snap.signedIn;
+  $('#account-email').textContent=snap.email??'';
+  if(document.activeElement!==$('#account-name'))$('#account-name').value=snap.firstName??'';
+  renderGreeting(snap);
+  if(snap.signedIn){$('#signin-dialog').close();syncAccount(snap.userId);}else syncedFor=null;
+});
+$('#signin-open').addEventListener('click',resetSigninForm);
+$('#account-signin').addEventListener('click',resetSigninForm);
+$('#signin-form').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const name=$('#signin-name').value.trim(),email=$('#signin-email').value.trim();
+  if(!name){signinError('Tell us your first name, so the app knows how to greet you.');$('#signin-name').focus();return;}
+  if(!EMAIL.test(email)){signinError('That email address does not look right.');$('#signin-email').focus();return;}
+  signinError('');$('#signin-submit').disabled=true;$('#signin-submit').textContent='Sending...';
+  const {ok,message}=await account.sendLink(email,name);
+  $('#signin-submit').disabled=false;$('#signin-submit').textContent='Send my link';
+  if(!ok){signinError(message);return;}
+  $('#signin-sent-email').textContent=email;$('#signin-form').hidden=true;$('#signin-sent').hidden=false;$('#signin-again').focus();
+});
+$('#signin-again').addEventListener('click',()=>{resetSigninForm();$('#signin-email').focus();});
+$('#account-name').addEventListener('change',async()=>{
+  const name=$('#account-name').value.trim(),current=account.snapshot.firstName;
+  if(!name){$('#account-name').value=current??'';return;}
+  if(name===current)return;
+  $('#account-name-note').textContent='Saving...';
+  const {ok}=await account.rename(name);
+  $('#account-name-note').textContent=ok?'Saved.':'Could not save that just now.';
+  setTimeout(()=>{$('#account-name-note').textContent='';},2600);
+});
+$('#account-signout').addEventListener('click',async()=>{
+  await account.signOut();
+  // The record is in the account by now; leaving it would show one reader's
+  // streak to whoever picks up the device next.
+  store.forget();refreshHome();$('#about-dialog').close();
+});
+
 void loadDailyMeditation().then(loadNarrator);
 refreshHome();syncSettings();
+// Last, and awaited by nothing above it: a slow network must not hold up the
+// painting, the audio or the Begin button.
+account.start().catch(()=>{});
 const bootScene=()=>import('./scene.js').then(async({KarmaScene})=>{
   scene=new KarmaScene($('#scene'));await scene.init();scene.setReduced(store.state.still||motion.matches);scene.setActive(!document.hidden&&(state==='home'||state==='playing'));
 }).catch(()=>{$('#scene').classList.remove('ready');});

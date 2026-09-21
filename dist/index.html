@@ -37,13 +37,13 @@
   <button id="interface-toggle" class="interface-toggle" type="button" aria-label="Hide interface" aria-pressed="false">Hide</button>
   <header class="header">
     <a class="brand" href="./" aria-label="Karma home"><span class="enso" aria-hidden="true"></span><span>Karma</span></a>
-    <button class="icon-button settings-button" id="settings-open" aria-label="Open meditation settings"><svg><use href="#i-settings"/></svg></button>
+    <div class="header-actions"><button class="text-button signin-button" id="signin-open" type="button" hidden>Sign in</button><button class="icon-button settings-button" id="settings-open" aria-label="Open meditation settings"><svg><use href="#i-settings"/></svg></button></div>
   </header>
 
   <main>
     <section id="home" class="screen home-screen" aria-labelledby="home-title">
       <div class="home-content">
-        <p class="eyebrow">DAILY KARMA MEDITATION</p>
+        <p class="eyebrow" id="home-eyebrow">DAILY KARMA MEDITATION</p>
         <h1 id="home-title">A little stillness.<br><em>A softer day.</em></h1>
         <p class="intro">Five minutes to soften, restore,<br class="mobile-break"> and begin again.</p>
         <div class="daily-session">
@@ -112,8 +112,38 @@
     <h2 id="about-title">A moment<br><em>to return to.</em></h2>
     <p>Karma is a daily invitation to rest. One painting. One guided meditation. Five minutes to give yourself a little care.</p>
     <p>A new five-minute practice is created every morning in Derek and Sarah voices. Topics draw from Eastern philosophy for achievers and seekers. Revisit the meditation as often as you like.</p>
-    <p>Your practice history and preferences stay in this browser. No account is needed. Clearing your browser's site data clears this history.</p>
+    <p>Your practice history and preferences stay in this browser, and no account is needed. Clearing your browser's site data clears a signed-out history. Sign in and your streak is also held against your account, so it survives a cleared browser and follows you to another device — including the other Karma build.</p>
     <p id="history-note" class="dialog-note"></p>
+    <div id="account-out">
+      <button class="text-button" id="account-signin" type="button">Sign in with a link</button>
+    </div>
+    <div id="account-in" hidden>
+      <p class="dialog-note">Signed in as <strong id="account-email"></strong>.</p>
+      <label class="narrator-label" for="account-name">First name</label>
+      <input id="account-name" type="text" maxlength="40" autocomplete="given-name" spellcheck="false">
+      <p class="dialog-note" id="account-name-note" role="status" aria-live="polite"></p>
+      <button class="text-button" id="account-signout" type="button">Sign out of this device</button>
+    </div>
+  </dialog>
+
+  <dialog id="signin-dialog" aria-labelledby="signin-title">
+    <div class="dialog-top"><p class="eyebrow">KEEP YOUR STREAK</p><button class="icon-button close-dialog" aria-label="Close sign in"><svg><use href="#i-close"/></svg></button></div>
+    <h2 id="signin-title">Take your practice<br><em>with you.</em></h2>
+    <form id="signin-form" novalidate>
+      <p>Right now your practice lives in this browser alone. Sign in and it follows you — to your laptop, to a new phone, through a cleared cache. Whatever you have already practised comes with you.</p>
+      <label class="narrator-label" for="signin-name">First name</label>
+      <input id="signin-name" type="text" maxlength="40" autocomplete="given-name" spellcheck="false" required>
+      <label class="narrator-label" for="signin-email">Email</label>
+      <input id="signin-email" type="email" autocomplete="email" inputmode="email" spellcheck="false" required>
+      <p class="dialog-note">We email you a link to tap. There is no password to set and nothing to install.</p>
+      <p class="form-error" id="signin-error" role="alert" hidden></p>
+      <button class="primary" id="signin-submit" type="submit">Send my link</button>
+    </form>
+    <div id="signin-sent" hidden>
+      <p>A link is on its way to <strong id="signin-sent-email"></strong>. Open it on this device and you are in. It works once, and it expires after an hour.</p>
+      <p class="dialog-note">Nothing yet? Look in spam, and give it a minute before asking for another.</p>
+      <button class="text-button" id="signin-again" type="button">Use a different address</button>
+    </div>
   </dialog>
 
   <dialog id="transcript-dialog" aria-labelledby="transcript-title">
