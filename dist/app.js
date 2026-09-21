@@ -53,6 +53,7 @@ function setState(next){
   $('#session-message').textContent=next==='loading'?'Preparing your meditation...':next==='error'?'The audio could not play. Please try again.':next==='paused'?'Take your time. We will be here.':phase(audio.currentTime);
   scene?.setActive(next==='home'||next==='playing');
   mixer.setPlaying(next==='playing');
+  updateMediaPlayback();
   if(next==='playing')tick();else if(raf){cancelAnimationFrame(raf);raf=null;}
   if(next!=='playing')showControls(false);
 }
@@ -69,6 +70,8 @@ function syncSettings(){
   $('#captions-setting').checked=store.state.captions;$('#motion-setting').checked=store.state.still||motion.matches;
   $('#motion-setting').disabled=motion.matches;
   $('#volume').value=Math.round(store.state.volume*100);$('#volume-value').textContent=`${Math.round(store.state.volume*100)}%`;
+  const noVolume=!mixer.volumeSupported;
+  $('#volume').disabled=noVolume;$('#music-volume').disabled=noVolume;$('#volume-note').hidden=!noVolume;
   mixer.applySettings(store.state);
   $('#mute').setAttribute('aria-pressed',String(audio.muted));$('#mute').setAttribute('aria-label',audio.muted?'Unmute all audio':'Mute all audio');$('#mute use').setAttribute('href',audio.muted?'#i-muted':'#i-sound');
   $('#music-setting').checked=!store.state.musicMuted;
@@ -77,6 +80,36 @@ function syncSettings(){
   $('#captions').setAttribute('aria-pressed',String(store.state.captions));$('#captions').setAttribute('aria-label',store.state.captions?'Hide captions':'Show captions');
   scene?.setReduced(store.state.still||motion.matches);renderProgress();
 }
+const mediaSession=()=>globalThis.navigator?.mediaSession;
+function updateMediaMetadata(){
+  const ms=mediaSession();
+  if(!ms||typeof globalThis.MediaMetadata!=='function')return;
+  try{
+    ms.metadata=new globalThis.MediaMetadata({
+      title:daily.title||'Rest & Recovery',
+      artist:'Karma',
+      album:'Daily Karma meditation',
+      artwork:[{src:new URL('assets/stillness.webp',location.href).href,sizes:'1024x1536',type:'image/webp'}]
+    });
+  }catch{}
+}
+function updateMediaPlayback(){
+  const ms=mediaSession();if(!ms)return;
+  try{ms.playbackState=state==='playing'?'playing':['paused','loading','error'].includes(state)?'paused':'none';}catch{}
+  if(typeof ms.setPositionState!=='function')return;
+  try{
+    if(['home','complete'].includes(state))ms.setPositionState();
+    else ms.setPositionState({duration:300,position:Math.max(0,Math.min(300,audio.currentTime||0)),playbackRate:1});
+  }catch{}
+}
+function setupMediaSession(){
+  const ms=mediaSession();if(!ms)return;
+  const on=(action,handler)=>{try{ms.setActionHandler(action,handler);}catch{}};
+  on('play',()=>{if(state!=='playing')void play();});
+  on('pause',()=>pause());
+  on('stop',()=>exit());
+  updateMediaMetadata();
+}
 function renderProgress(){
   const time=Math.min(300,audio.currentTime||0);
   $('#progress-circle').style.strokeDashoffset=207.345*(1-time/300);
@@ -84,6 +117,7 @@ function renderProgress(){
   $('#progress').setAttribute('aria-valuetext',`${Math.floor(time/60)} minutes and ${Math.floor(time%60)} seconds of 5 minutes`);
   const cue=cues.find(c=>time>=c.start&&time<c.end);
   mixer.sync(time,!!cue,state==='playing'&&!audio.paused&&audio.readyState>=3);
+  updateMediaPlayback();
   const visible=store.state.captions&&cue&&['playing','paused'].includes(state);
   $('#caption').hidden=!visible;
   if(visible&&$('#caption').textContent!==cue.text)$('#caption').textContent=cue.text;
@@ -153,7 +187,14 @@ $('#narrator-setting').addEventListener('change',e=>{
 });
 $('#reveal').addEventListener('click',()=>{showControls();$('#pause').focus();});
 $('#session').addEventListener('pointerdown',()=>showControls());controls.addEventListener('focusin',()=>showControls(false));controls.addEventListener('focusout',()=>showControls());
-document.addEventListener('visibilitychange',()=>{if(document.hidden){pause();scene?.setActive(false);}else{scene?.setActive(state==='home');refreshHome();}});
+document.addEventListener('visibilitychange',()=>{
+  // Playback deliberately continues while the screen is off. Only the
+  // artwork stops, because nothing is looking at it.
+  if(document.hidden){scene?.setActive(false);if(raf){cancelAnimationFrame(raf);raf=null;}return;}
+  scene?.setActive(state==='home'||state==='playing');
+  if(state==='playing'&&!raf)tick();
+  refreshHome();
+});
 audio.addEventListener('ended',finish);audio.addEventListener('error',fail);audio.addEventListener('timeupdate',renderProgress);
 audio.addEventListener('waiting',()=>{if(state==='playing'){$('#session-message').textContent='Taking a moment to load the audio...';mixer.setPlaying(false);}});
 audio.addEventListener('pause',()=>{if(state==='playing'&&!audio.ended)setState('paused');});
@@ -196,6 +237,7 @@ async function loadDailyMeditation(){
     $('#home-daily-meta').textContent=`${daily.topic} · 5 min guided meditation`;
     $('#session-title').textContent=daily.title;
     $('#transcript-title').textContent=`${daily.topic}: ${daily.title}`;
+    updateMediaMetadata();
   }catch{/* The bundled meditation remains available if the daily manifest is temporarily unavailable. */}
 }
 // Signing in is an addition, never a gate: everything here reads the local
@@ -323,7 +365,7 @@ $('#cal-next').addEventListener('click',()=>{
 
 void loadDailyMeditation().then(loadNarrator);
 buildBoundaryOptions();renderStreaks();
-refreshHome();syncSettings();
+refreshHome();syncSettings();setupMediaSession();
 // Last, and awaited by nothing above it: a slow network must not hold up the
 // painting, the audio or the Begin button.
 account.start().catch(()=>{});

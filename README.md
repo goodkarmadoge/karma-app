@@ -20,7 +20,7 @@ From this folder, run `python serve.py`, then visit `http://127.0.0.1:4173`. The
 
 The source of the application is `dist/index.html`, `styles.css`, `app.js`, `audio-mixer.js`, `store.js`, `account.js`, `config.js`, `practice-day.js`, `streaks.js`, and `scene.js`. All browser assets are self-hosted under `dist/assets/`, and `dist/vendor/` holds supabase-js (MIT).
 
-Includes English captions, a transcript, pause/resume, mute/volume, reduced motion, local practice history, and static artwork fallback. The practice day resets at 01:00 Singapore time. Backgrounding the app pauses playback.
+Includes English captions, a transcript, pause/resume, mute/volume, reduced motion, local practice history, and static artwork fallback. The practice day resets at 01:00 Singapore time. Playback continues when the screen turns off, and the lock screen carries the title, the painting and working play, pause and stop controls.
 
 ## Accounts and streaks
 
@@ -65,13 +65,17 @@ The user-supplied opening cue plays from 0 to 6.912 seconds, at a restrained lev
 
 Five minutes of instrumental music were generated with the ElevenLabs Music API (`music_v1`), using a prompt for soft felt piano, sustained strings, Asian-inspired pentatonic harmony, and a calm water-spa atmosphere. The music is self-hosted as `dist/assets/rest-and-recovery-music.mp3`.
 
-**Music on/off** in the player mutes only the background. Settings offer separate narration and music volume controls; music defaults to 22%. The main speaker button mutes all audio. Music fades in after the opening cue, ducks to 45% of its chosen level during narration, and fades out over the last seven seconds. Pausing, exiting, or completing the meditation stops both tracks. Music preference and volume persist on this device.
+**Music on/off** in the player mutes only the background. The main speaker button mutes all audio. Pausing, exiting, or completing the meditation stops both tracks. Preferences persist on this device.
+
+The bed level and the fade envelope live in the music file rather than in the player: silence under the opening cue, a fade in from six to twelve seconds, and a fade out over the last seven. This is what lets the music keep playing with the screen off, because the alternative is a Web Audio gain node and iOS suspends the audio context on lock. The file was attenuated by -17.1 dB from its ElevenLabs master, which puts the bed at about -32.7 dBFS RMS, roughly 4 dB under the Derek narration.
+
+What remains in the player is ducking to 70% under speech, and the two volume settings. All three depend on `volume` being settable on a media element, which iOS ignores. Where that is the case the sliders are disabled and Settings says why; mute and music on/off still work, and the baked level is chosen to sit correctly with no ducking at all.
 
 ## Assets
 
 The delivery audio is a 96 kbps mono MP3, measured by the browser at 300.048 seconds, including intentional pauses. Its original master is exactly 300 seconds. The 48 ms MP3 encoding overhead falls within the specification's 0.1-second tolerance.
 
-The instrumental track is a 128 kbps MP3, measured at approximately 300.042 seconds. It follows the narration's playback clock rather than running an independent session timer.
+The instrumental track is a 128 kbps MP3, measured at approximately 300.069 seconds after the level and envelope were baked in. It follows the narration's playback clock rather than running an independent session timer.
 
 The source painting is optimized as a 220 KB WebP and the display font is subset to approximately 12 KB. Three.js loads after the primary interface. No live TTS requests occur while using the app.
 

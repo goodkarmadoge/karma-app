@@ -1,24 +1,39 @@
 // Narration is the timeline owner. The optional music follows its position.
+//
+// Both tracks are plain media elements and deliberately stay that way. Routing
+// them through Web Audio would give exact gain control, but iOS suspends an
+// AudioContext the moment the screen locks, and listening with the screen off is
+// the point of the thing. So the bed level and the fade envelope are baked into
+// the music file, and what is left here is ducking, which is a nicety rather
+// than a requirement.
+//
+// iOS also ignores `volume` on a media element. Where that is the case the two
+// volume settings cannot do anything, and the interface says so rather than
+// offering a slider that moves nothing. `muted` is honoured everywhere.
+const DUCK = 0.7;
+
+const volumeIsSettable = (el) => {
+  const before = el.volume;
+  try {
+    el.volume = 0.5;
+    const ok = Math.abs(el.volume - 0.5) < 0.01;
+    el.volume = before;
+    return ok;
+  } catch { return false; }
+};
+
 export class AudioMixer {
   constructor(voice,music,onError=()=>{}) {
-    this.voice=voice;this.music=music;this.onError=onError;this.context=null;
-    this.voiceGain=null;this.musicGain=null;this.playing=false;this.failed=false;
-    this.musicStarting=false;this.settings={volume:1,muted:false,musicMuted:false,musicVolume:.22};
-    this.speaking=false;this.position=0;this.lastTarget=null;
+    this.voice=voice;this.music=music;this.onError=onError;
+    this.playing=false;this.failed=false;
+    this.musicStarting=false;this.settings={volume:1,muted:false,musicMuted:false,musicVolume:1};
+    this.speaking=false;this.position=0;
+    this.volumeSupported=volumeIsSettable(voice);
     music.addEventListener('error',()=>this.musicError());
   }
-  unlock() {
-    const Context=globalThis.AudioContext||globalThis.webkitAudioContext;
-    if(!this.context&&Context){
-      this.context=new Context();
-      this.voiceGain=this.context.createGain();this.musicGain=this.context.createGain();
-      this.context.createMediaElementSource(this.voice).connect(this.voiceGain).connect(this.context.destination);
-      this.context.createMediaElementSource(this.music).connect(this.musicGain).connect(this.context.destination);
-      this.voice.volume=1;this.music.volume=1;this.musicGain.gain.value=0;this.lastTarget=null;
-    }
-    this.applySettings(this.settings);
-    return this.context?.state==='suspended'?this.context.resume():Promise.resolve();
-  }
+  // Kept so the first gesture still has something to await; there is no longer
+  // an audio graph to unlock.
+  unlock(){this.applySettings(this.settings);return Promise.resolve();}
   musicError(){this.failed=true;this.musicStarting=false;this.music.pause();this.onError('Background music could not load. The guided meditation is still available.');}
   start(position=0){
     this.position=position;this.playing=false;
@@ -42,23 +57,12 @@ export class AudioMixer {
     this.voice.muted=!!this.settings.muted;this.music.muted=!!(this.settings.muted||this.settings.musicMuted);
     this.applyLevels();
   }
-  setGain(node,value){
-    if(!node)return;
-    node.gain.cancelScheduledValues(this.context.currentTime);
-    node.gain.setTargetAtTime(value,this.context.currentTime,.18);
-  }
   applyLevels(){
+    if(!this.volumeSupported)return;
     const s=this.settings;
-    // Let the opening cue ring out; fade music in from 6s, and out at the end.
-    const envelope=Math.min(1,Math.max(0,(this.position-6)/6),Math.max(0,(300-this.position)/7));
-    const voice=s.muted?0:s.volume;
-    const music=(!this.playing||s.muted||s.musicMuted)?0:s.musicVolume*envelope*(this.speaking?.45:1);
-    const target=[voice,music];
-    if(this.voiceGain){
-      if(!this.lastTarget||Math.abs(voice-this.lastTarget[0])>.001)this.setGain(this.voiceGain,voice);
-      if(!this.lastTarget||Math.abs(music-this.lastTarget[1])>.001)this.setGain(this.musicGain,music);
-    }else{this.voice.volume=voice;this.music.volume=music;}
-    this.lastTarget=target;
+    // The fade in and out are already in the file; this is the duck under speech.
+    this.voice.volume=Math.max(0,Math.min(1,s.volume));
+    this.music.volume=Math.max(0,Math.min(1,s.musicVolume*(this.speaking?DUCK:1)));
   }
   sync(position,speaking,playing){
     this.position=position;this.speaking=speaking;this.playing=playing;

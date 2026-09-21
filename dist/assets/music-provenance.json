@@ -5,5 +5,17 @@
   "requestedDurationMs": 300000,
   "instrumental": true,
   "direction": "Soft felt piano and warm sustained strings; Asian-inspired pentatonic harmony; a serene, flowing water-spa atmosphere; no vocals or percussion.",
-  "generatedDate": "2026-09-17"
+  "generatedDate": "2026-09-17",
+  "delivery": {
+    "gain": 0.14,
+    "gainDb": -17.1,
+    "envelope": {
+      "silentUntilSeconds": 6,
+      "fadeInToSeconds": 12,
+      "fadeOutSeconds": 7
+    },
+    "bodyRmsDbfs": -32.7,
+    "reason": "iOS ignores element volume and suspends an AudioContext on screen lock, so the bed level and the fades are baked into the file.",
+    "master": "The untouched ElevenLabs render is the version of this file in git history before this change."
+  }
 }

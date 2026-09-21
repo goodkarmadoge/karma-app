@@ -4,7 +4,7 @@
 // compute rather than keep (see streaks.js). The id is what lets a device offer
 // its whole history to an account on every sign-in without counting one twice.
 import {clampBoundaryHour,DEFAULT_BOUNDARY_HOUR} from './practice-day.js';
-const KEY='karma.v1',KEEP=1000,DAY=86400000;
+const KEY='karma.v1',KEEP=1000,DAY=86400000,LEGACY_BED=.22;
 const newId=()=>crypto?.randomUUID?crypto.randomUUID():`${Date.now().toString(36)}-${Math.random().toString(36).slice(2,10)}`;
 const tidy=list=>{
   const seen=new Set(),out=[];
@@ -17,10 +17,10 @@ const tidy=list=>{
 const fromLegacyDays=days=>days.filter(Number.isSafeInteger).map(d=>({id:newId(),at:d*DAY+5*3600000}));
 export function createStore(storage){
   let available=true;
-  let state={version:3,accountId:null,sessions:[],priorSessions:0,boundaryHour:DEFAULT_BOUNDARY_HOUR,showStreaks:true,captions:false,still:false,volume:1,muted:false,musicMuted:false,musicVolume:.22,narrator:'derek'};
+  let state={version:4,accountId:null,sessions:[],priorSessions:0,boundaryHour:DEFAULT_BOUNDARY_HOUR,showStreaks:true,captions:false,still:false,volume:1,muted:false,musicMuted:false,musicVolume:1,narrator:'derek'};
   try{
     const raw=JSON.parse(storage.getItem(KEY)||'null');
-    if([1,2,3].includes(raw?.version)){
+    if([1,2,3,4].includes(raw?.version)){
       if(['derek','sarah'].includes(raw.narrator))state.narrator=raw.narrator;
       state.sessions=raw.version===3?tidy(Array.isArray(raw.sessions)?raw.sessions:[]):tidy(fromLegacyDays(Array.isArray(raw.days)?raw.days:[]));
       const counted=Number.isSafeInteger(raw.priorSessions)&&raw.priorSessions>=0?raw.priorSessions:state.sessions.length;
@@ -30,7 +30,13 @@ export function createStore(storage){
       if(typeof raw.showStreaks==='boolean')state.showStreaks=raw.showStreaks;
       for(const key of ['captions','still','muted','musicMuted'])if(typeof raw[key]==='boolean')state[key]=raw[key];
       if(Number.isFinite(raw.volume))state.volume=Math.max(0,Math.min(1,raw.volume));
-      if(Number.isFinite(raw.musicVolume))state.musicVolume=Math.max(0,Math.min(1,raw.musicVolume));
+      // Up to v3 the music file played at full level and .22 was the bed. The
+      // bed now lives in the file itself, so the old setting has to be read
+      // against the old scale or every returning reader loses the music.
+      if(Number.isFinite(raw.musicVolume)){
+        const v=raw.version<4?raw.musicVolume/LEGACY_BED:raw.musicVolume;
+        state.musicVolume=Math.max(0,Math.min(1,v));
+      }
     }
     storage.setItem(KEY,JSON.stringify(state));
   }catch{available=false;}
