@@ -18,9 +18,34 @@ Import this repository in Vercel. `vercel.json` selects the static `dist/` direc
 
 From this folder, run `python serve.py`, then visit `http://127.0.0.1:4173`. The included server supports byte-range requests, which the audio player needs for reliable music synchronization. Use an HTTP server rather than opening the HTML as a `file://` URL, because the app uses JavaScript modules. A production static host must also support byte-range requests for MP3 files.
 
-The source of the application is `dist/index.html`, `styles.css`, `app.js`, `audio-mixer.js`, `store.js`, and `scene.js`. All browser assets are self-hosted under `dist/assets/`.
+The source of the application is `dist/index.html`, `styles.css`, `app.js`, `audio-mixer.js`, `store.js`, `account.js`, `config.js`, and `scene.js`. All browser assets are self-hosted under `dist/assets/`, and `dist/vendor/` holds supabase-js (MIT).
 
 Includes English captions, a transcript, pause/resume, mute/volume, reduced motion, local practice history, and static artwork fallback. The practice day resets at 01:00 Singapore time. Backgrounding the app pauses playback.
+
+## Accounts and streaks
+
+Signing in is optional and stays optional. The record in `store.js` is the whole practice record when nobody is signed in and remains what the home screen reads when somebody is, so the app opens, counts a session and shows a streak with no network and no account at all. An account only adds durability: the streak survives a cleared browser and follows the reader to another device.
+
+Sign-in is a magic link, backed by Supabase Auth. **The account is shared with the handscroll build** (`goodkarmadoge/Karma-app-claude`, live at karma-app-woad.vercel.app): one reader, one streak, whichever build they opened. Both builds compute the practice day with the same expression — `Math.floor((ms + 7h) / 24h)`, the boundary at 01:00 Asia/Singapore — so the day sets merge without translation.
+
+Which build a sitting happened in is recorded separately, in `practice_sessions.app` (`daily` here, `handscroll` there), so the two can still be compared without splitting anyone's streak. `dist/config.js` carries the project URL, the publishable key and the `APP` tag; all three are meant to be public, since every table is behind row level security.
+
+The streak is derived from the set of days on both sides rather than carried as a counter, so a record adopted from the server and one built up on a device cannot disagree. `store.js` is at v2 and migrates a v1 record in place, keeping its days, its longest streak and its preferences.
+
+supabase-js loads by dynamic import inside `account.start()` rather than a static import, so 137 kB never sits in front of the painting or the Begin button, and a failed import quietly stops offering sign-in and changes nothing else. The magic link uses the implicit flow rather than PKCE, because PKCE keeps its verifier in the browser that asked for the link and so fails when the link opens in a mail app's in-app browser.
+
+Schema, RLS policies and the two write functions are documented in the handscroll build's README, which is where the migrations live.
+
+### Configuring auth
+
+Under **Authentication -> URL Configuration** in the Supabase project, the redirect allow list must include **both** builds, or a link falls back to the Site URL:
+
+```
+https://karma-app-woad.vercel.app/**
+https://karma-daily-meditation.vercel.app/**
+```
+
+Magic links currently go out through Supabase's own sender, capped at a few an hour and unsupported for production. Enough for testers arriving one at a time; not enough to invite a group at once.
 
 ## Opening and background music
 
