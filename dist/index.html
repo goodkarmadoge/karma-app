@@ -96,6 +96,30 @@
   <dialog id="settings-dialog" aria-labelledby="settings-title">
     <div class="dialog-top"><p class="eyebrow">MAKE YOURSELF COMFORTABLE</p><button class="icon-button close-dialog" aria-label="Close settings"><svg><use href="#i-close"/></svg></button></div>
     <h2 id="settings-title">Your quiet,<br><em>your way.</em></h2>
+
+    <label class="setting-row"><span>Count my streak<small>Days in a row you have practised</small></span><input id="streaks-setting" type="checkbox" role="switch" checked></label>
+    <div id="streak-panel">
+      <div class="streak-badge" id="streak-badge"><span class="enso streak-ring" aria-hidden="true"></span><span class="streak-count" id="streak-count">0</span><span class="streak-unit" id="streak-unit">days</span></div>
+      <p class="streak-line" id="streak-line"></p>
+      <dl class="stats-row">
+        <div class="stat"><dt>Longest</dt><dd id="stat-longest">0</dd></div>
+        <div class="stat"><dt>Sittings</dt><dd id="stat-sessions">0</dd></div>
+        <div class="stat"><dt>Time</dt><dd id="stat-time">0m</dd></div>
+      </dl>
+      <div class="calendar">
+        <div class="calendar-head">
+          <button class="icon-button" id="cal-prev" type="button" aria-label="Previous month">&lsaquo;</button>
+          <p class="calendar-month" id="cal-month" aria-live="polite"></p>
+          <button class="icon-button" id="cal-next" type="button" aria-label="Next month">&rsaquo;</button>
+        </div>
+        <div class="calendar-weekdays" aria-hidden="true"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div>
+        <div class="calendar-grid" id="cal-grid" role="list"></div>
+      </div>
+      <label class="narrator-label" for="boundary-setting">When a day begins</label>
+      <select id="boundary-setting"></select>
+      <p class="narrator-note" id="boundary-note"></p>
+    </div>
+
     <label class="narrator-label" for="narrator-setting">Narrator</label>
     <select id="narrator-setting"><option value="derek">Derek · Male voice</option><option value="sarah">Sarah · Female voice</option></select>
     <p class="narrator-note" id="narrator-status" role="status">Changing narrator restarts the meditation.</p>

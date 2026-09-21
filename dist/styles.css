@@ -32,3 +32,17 @@ body.interface-hidden .paper-veil{opacity:0}
 .player-controls.concealed,.player-controls.concealed *{visibility:hidden;pointer-events:none!important}
 body:not([data-state='home']) #artwork-hint,body:not([data-state='home']) #artwork-hint *{visibility:hidden;pointer-events:none!important}
 .header-actions{display:flex;align-items:center;gap:4px}.signin-button{white-space:nowrap}#signin-name,#signin-email,#account-name{width:100%;min-height:48px;padding:10px 14px;border:1px solid #9a9d8d;border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;margin-bottom:18px;touch-action:manipulation}#signin-name:focus-visible,#signin-email:focus-visible,#account-name:focus-visible{outline:2px solid var(--accent);outline-offset:3px}#signin-submit{margin-top:8px;width:100%}.form-error{font-size:13px;color:var(--accent);margin:0 0 14px}.form-error[hidden]{display:none}#account-in,#account-out{margin-top:6px}#account-name-note{min-height:18px;margin-top:0}
+
+.streak-badge{position:relative;width:128px;height:128px;margin:26px auto 0;display:grid;place-items:center}.streak-ring{position:absolute;inset:0;width:100%;height:100%;border-width:3px;border-radius:50%}.streak-count{font-family:var(--serif);font-size:44px;line-height:1;font-weight:500;color:var(--ink)}.streak-unit{position:absolute;bottom:26px;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:#6b715f}
+/* A broken streak should read as rest, not as failure. */
+.streak-badge[data-lapsed='true'] .streak-ring{border-color:#b5b3a2;border-right-color:transparent}.streak-badge[data-lapsed='true'] .streak-count{color:#6b715f}
+.streak-line{text-align:center;font-size:14px;color:#555d4e;margin:14px 0 0}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:22px 0 0;padding:16px 0;border-top:1px solid #74796229;border-bottom:1px solid #74796229}.stat{text-align:center}.stat dt{font-size:10px;letter-spacing:.13em;text-transform:uppercase;color:#6b715f}.stat dd{margin:7px 0 0;font-family:var(--serif);font-size:23px;line-height:1;color:var(--ink)}
+.calendar{margin:22px 0 26px}.calendar-head{display:flex;align-items:center;justify-content:space-between;gap:8px}.calendar-head .icon-button{font-size:21px;line-height:1;color:#414937}.calendar-head .icon-button[disabled]{opacity:.3;cursor:default}.calendar-month{font-family:var(--serif);font-size:17px;margin:0;color:var(--ink)}
+.calendar-weekdays,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}.calendar-weekdays{margin:8px 0 5px;font-size:10px;letter-spacing:.1em;text-align:center;color:#6b715f}
+.calendar-day{aspect-ratio:1;display:grid;place-items:center;font-size:13px;border-radius:50%;color:#4a5142}.calendar-day[data-blank='true']{visibility:hidden}
+/* Practised days are filled in gilt. */
+.calendar-day[data-practised='true']{background:#c9a06a;color:#2a2113;font-weight:600}.calendar-day[data-today='true']{box-shadow:inset 0 0 0 1.5px #8b9078}.calendar-day[data-today='true'][data-practised='true']{box-shadow:inset 0 0 0 1.5px #7c6234}.calendar-day[data-future='true']{color:#a9ad9b}
+#boundary-setting{width:100%;min-height:48px;padding:10px 14px;border:1px solid #9a9d8d;border-radius:4px;background:var(--paper);color:var(--ink);font:inherit;font-size:16px;touch-action:manipulation}#boundary-setting:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+/* Turning the streak off puts the whole apparatus away rather than leaving a dead panel. */
+#streak-panel[hidden]{display:none}

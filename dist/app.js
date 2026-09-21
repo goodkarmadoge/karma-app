@@ -1,11 +1,19 @@
-import {createStore,karmaDay} from './store.js';
+import {createStore} from './store.js';
+import {BOUNDARY_HOURS,clampBoundaryHour,dayIndexForCalendarDate,formatBoundaryHour,practiceDayIndex} from './practice-day.js';
+import {splitMinutes,summarise} from './streaks.js';
 import {AudioMixer} from './audio-mixer.js';
 import {createAccount} from './account.js';
 const $=s=>document.querySelector(s);
 let local;try{local=window.localStorage;}catch{local=null;}
 const store=createStore(local),account=createAccount(),audio=$('#audio'),motion=matchMedia('(prefers-reduced-motion: reduce)');
 const mixer=new AudioMixer(audio,$('#music-audio'),message=>{$('#music-status').textContent=message;$('#music-status').hidden=!message;});
-let state='home',scene=null,cues=[],activeDay=null,completed=false,attempt=0,hideTimer=null,loadTimer=null,raf=null;
+let state='home',scene=null,cues=[],startedAt=null,completed=false,attempt=0,hideTimer=null,loadTimer=null,raf=null;
+// The practice day is derived, under whatever boundary is set now.
+const karmaDay=(at=Date.now())=>practiceDayIndex(at,store.boundaryHour);
+const streaks=()=>summarise(store.sessions,store.boundaryHour,{priorSessions:store.state.priorSessions});
+// Null means "the month today is in", so reopening settings comes back to now.
+let calendarMonth=null;
+const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 let narratorReady=false,narratorRequest=0;
 let daily={date:'',title:'Rest & Recovery',topic:'Karma',audioBaseUrl:'assets'};
 const controls=$('#player-controls');
@@ -49,10 +57,10 @@ function setState(next){
   if(next!=='playing')showControls(false);
 }
 function refreshHome(){
-  const todayDone=store.state.days.includes(karmaDay());
+  const summary=streaks(),todayDone=summary.days.includes(summary.today);
   $('#begin span').textContent=todayDone?'Meditate again':'Begin meditation';
   $('#home-status').textContent=todayDone?'You made time for rest today.':'';
-  $('#history-note').textContent=store.available?(store.state.days.length?`${store.state.days.length} day${store.state.days.length===1?'':'s'} of practice saved on this device.`:'Your first quiet moment is waiting.'): 'Browser storage is unavailable. You can still meditate; your history will last for this visit only.';
+  $('#history-note').textContent=store.available?(summary.days.length?`${summary.days.length} day${summary.days.length===1?'':'s'} of practice saved.`:'Your first quiet moment is waiting.'): 'Browser storage is unavailable. You can still meditate; your history will last for this visit only.';
 }
 function syncSettings(){
   $('#narrator-setting').value=store.state.narrator;
@@ -93,7 +101,7 @@ async function play(fresh=false){
   if(!narratorReady){await loadNarrator();if(!narratorReady)return;}
   if(state==='loading'||state==='playing')return;
   const id=++attempt;
-  if(fresh){audio.currentTime=0;activeDay=karmaDay();completed=false;}
+  if(fresh){audio.currentTime=0;startedAt=Date.now();completed=false;}
   if(audio.error)audio.load();
   setState('loading');renderProgress();
   loadTimer=setTimeout(()=>{if(id===attempt&&state==='loading'){attempt++;fail();}},25000);
@@ -112,12 +120,15 @@ function pause(){
   if(!['playing','loading'].includes(state))return;
   ++attempt;clearTimeout(loadTimer);audio.pause();setState('paused');renderProgress();
 }
-function exit(){++attempt;clearTimeout(loadTimer);audio.pause();audio.currentTime=0;activeDay=null;completed=false;setState('home');renderProgress();refreshHome();$('#begin').focus({preventScroll:true});}
+function exit(){++attempt;clearTimeout(loadTimer);audio.pause();audio.currentTime=0;startedAt=null;completed=false;setState('home');renderProgress();refreshHome();$('#begin').focus({preventScroll:true});}
 function finish(){
-  if(completed||activeDay===null||audio.currentTime<299.8)return;
-  completed=true;const added=store.complete(activeDay);setState('complete');
-  account.recordCompletion(activeDay).catch(()=>{});
-  $('#practice-note').textContent=added?(store.streak(activeDay)>1?`${store.streak(activeDay)} days of making space for yourself.`:'A small beginning. A little more space.'):'Another quiet moment, just for you.';
+  if(completed||startedAt===null||audio.currentTime<299.8)return;
+  completed=true;
+  const before=streaks(),sitting=store.recordSession(startedAt);
+  account.recordSession(sitting).catch(()=>{});
+  setState('complete');
+  const after=streaks(),firstToday=!before.days.includes(after.today);
+  $('#practice-note').textContent=!store.state.showStreaks?'':firstToday?(after.current>1?`${after.current} days of making space for yourself.`:'A small beginning. A little more space.'):'Another quiet moment, just for you.';
   $('#complete-title').setAttribute('tabindex','-1');$('#complete-title').focus({preventScroll:true});refreshHome();
 }
 $('#begin').addEventListener('click',()=>play(true));$('#resume').addEventListener('click',()=>play());
@@ -145,7 +156,7 @@ audio.addEventListener('ended',finish);audio.addEventListener('error',fail);audi
 audio.addEventListener('waiting',()=>{if(state==='playing'){$('#session-message').textContent='Taking a moment to load the audio...';mixer.setPlaying(false);}});
 audio.addEventListener('pause',()=>{if(state==='playing'&&!audio.ended)setState('paused');});
 for(const [button,dialog] of [['settings-open','settings-dialog'],['session-settings','settings-dialog'],['about-open','about-dialog'],['transcript-open','transcript-dialog'],['signin-open','signin-dialog'],['account-signin','signin-dialog']]){
-  $('#'+button).addEventListener('click',()=>{if(state==='playing')pause();$('#'+dialog).showModal();});
+  $('#'+button).addEventListener('click',()=>{if(state==='playing')pause();if(dialog==='settings-dialog')renderStreaks();$('#'+dialog).showModal();});
 }
 document.querySelectorAll('.close-dialog').forEach(button=>button.addEventListener('click',()=>button.closest('dialog').close()));
 document.querySelectorAll('dialog').forEach(d=>d.addEventListener('click',e=>{if(e.target===d){const r=d.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)d.close();}}));
@@ -193,14 +204,19 @@ function signinError(message){$('#signin-error').textContent=message;$('#signin-
 function resetSigninForm(){$('#signin-form').hidden=false;$('#signin-sent').hidden=true;signinError('');$('#signin-submit').disabled=false;$('#signin-submit').textContent='Send my link';}
 function renderGreeting({signedIn,firstName}){
   const name=signedIn?firstName:null;
-  $('#home-eyebrow').textContent=name?(store.state.days.length?`WELCOME BACK, ${name.toUpperCase()}`:`WELCOME, ${name.toUpperCase()}`):'DAILY KARMA MEDITATION';
+  $('#home-eyebrow').textContent=name?(store.sessions.length?`WELCOME BACK, ${name.toUpperCase()}`:`WELCOME, ${name.toUpperCase()}`):'DAILY KARMA MEDITATION';
 }
 async function syncAccount(userId){
   if(syncedFor===userId)return;
   syncedFor=userId;
-  const days=await account.sync(store.switchAccount(userId));
-  if(days)store.adopt(days);
-  refreshHome();renderGreeting(account.snapshot);
+  const sessions=await account.sync(store.switchAccount(userId));
+  if(sessions)store.adopt(sessions);
+  // The boundary and the toggle belong to the reader, so the account's answer
+  // wins over whatever this device happened to have.
+  const {boundaryHour,showStreaks}=account.snapshot;
+  if(boundaryHour!==null)store.setBoundaryHour(boundaryHour);
+  if(showStreaks!==null)store.setShowStreaks(showStreaks);
+  refreshHome();renderStreaks();renderGreeting(account.snapshot);
 }
 account.onChange(snap=>{
   $('#signin-open').hidden=!snap.available||snap.signedIn;
@@ -208,7 +224,7 @@ account.onChange(snap=>{
   $('#account-email').textContent=snap.email??'';
   if(document.activeElement!==$('#account-name'))$('#account-name').value=snap.firstName??'';
   renderGreeting(snap);
-  if(snap.signedIn){$('#signin-dialog').close();syncAccount(snap.userId);}else syncedFor=null;
+  if(snap.signedIn){$('#signin-dialog').close();syncAccount(snap.userId);}else{syncedFor=null;renderStreaks();}
 });
 $('#signin-open').addEventListener('click',resetSigninForm);
 $('#account-signin').addEventListener('click',resetSigninForm);
@@ -237,10 +253,74 @@ $('#account-signout').addEventListener('click',async()=>{
   await account.signOut();
   // The record is in the account by now; leaving it would show one reader's
   // streak to whoever picks up the device next.
-  store.forget();refreshHome();$('#about-dialog').close();
+  store.forget();refreshHome();renderStreaks();$('#about-dialog').close();
+});
+
+// ---------- the streak, its calendar, and where a day begins ----------
+function buildBoundaryOptions(){
+  $('#boundary-setting').replaceChildren(...BOUNDARY_HOURS.map(h=>{const o=document.createElement('option');o.value=String(h);o.textContent=formatBoundaryHour(h);return o;}));
+}
+function renderCalendar(summary){
+  const today=new Date(),shown=calendarMonth??new Date(today.getFullYear(),today.getMonth(),1);
+  const year=shown.getFullYear(),month=shown.getMonth();
+  $('#cal-month').textContent=`${MONTHS[month]} ${year}`;
+  $('#cal-next').disabled=year===today.getFullYear()&&month===today.getMonth();
+  const practised=new Set(summary.days);
+  // getDay() is Sunday-first; the grid is Monday-first.
+  const lead=(new Date(year,month,1).getDay()+6)%7,length=new Date(year,month+1,0).getDate(),cells=[];
+  for(let i=0;i<lead;i++){const b=document.createElement('span');b.className='calendar-day';b.dataset.blank='true';cells.push(b);}
+  for(let day=1;day<=length;day++){
+    const index=dayIndexForCalendarDate(year,month,day),cell=document.createElement('span');
+    cell.className='calendar-day';cell.setAttribute('role','listitem');cell.textContent=String(day);
+    if(practised.has(index))cell.dataset.practised='true';
+    if(index===summary.today)cell.dataset.today='true';
+    if(index>summary.today)cell.dataset.future='true';
+    cell.setAttribute('aria-label',practised.has(index)?`${MONTHS[month]} ${day}, practised`:`${MONTHS[month]} ${day}`);
+    cells.push(cell);
+  }
+  $('#cal-grid').replaceChildren(...cells);
+}
+function renderStreaks(){
+  const on=store.state.showStreaks;
+  $('#streaks-setting').checked=on;$('#streak-panel').hidden=!on;
+  if(!on)return;
+  const summary=streaks(),lapsed=summary.current===0;
+  $('#streak-badge').dataset.lapsed=String(lapsed);
+  $('#streak-count').textContent=String(summary.current);
+  $('#streak-unit').textContent=summary.current===1?'day':'days';
+  $('#streak-line').textContent=lapsed?(summary.totalSessions?'Your streak is resting. Sit today and it begins again.':'Sit once and your streak begins.'):(summary.days.includes(summary.today)?'Counted for today.':'Still alive. Today is not yet counted.');
+  $('#stat-longest').textContent=String(summary.longest);
+  $('#stat-sessions').textContent=String(summary.totalSessions);
+  const {hours,minutes}=splitMinutes(summary.totalMinutes);
+  $('#stat-time').textContent=hours?`${hours}h ${minutes}m`:`${minutes}m`;
+  $('#boundary-setting').value=String(clampBoundaryHour(store.boundaryHour));
+  $('#boundary-note').textContent=`A sitting counts for the day before until ${formatBoundaryHour(store.boundaryHour)}.`;
+  renderCalendar(summary);
+}
+$('#streaks-setting').addEventListener('change',e=>{
+  store.setShowStreaks(e.target.checked);account.setShowStreaks(e.target.checked).catch(()=>{});
+  renderStreaks();refreshHome();
+});
+$('#boundary-setting').addEventListener('change',e=>{
+  const hour=clampBoundaryHour(Number(e.target.value));
+  store.setBoundaryHour(hour);account.setBoundaryHour(hour).catch(()=>{});
+  // Nothing is rewritten: every figure and every square recomputes from the
+  // same sittings under the new boundary.
+  renderStreaks();refreshHome();
+});
+$('#cal-prev').addEventListener('click',()=>{
+  const t=new Date(),shown=calendarMonth??new Date(t.getFullYear(),t.getMonth(),1);
+  calendarMonth=new Date(shown.getFullYear(),shown.getMonth()-1,1);renderCalendar(streaks());
+});
+$('#cal-next').addEventListener('click',()=>{
+  const t=new Date(),shown=calendarMonth??new Date(t.getFullYear(),t.getMonth(),1);
+  const next=new Date(shown.getFullYear(),shown.getMonth()+1,1);
+  if(next>new Date(t.getFullYear(),t.getMonth(),1))return;
+  calendarMonth=next;renderCalendar(streaks());
 });
 
 void loadDailyMeditation().then(loadNarrator);
+buildBoundaryOptions();renderStreaks();
 refreshHome();syncSettings();
 // Last, and awaited by nothing above it: a slow network must not hold up the
 // painting, the audio or the Begin button.
