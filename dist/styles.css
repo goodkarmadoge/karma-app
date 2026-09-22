@@ -123,3 +123,5 @@ body[data-art-tone='dark'] .header .text-button:focus-visible,body[data-art-tone
 @media(min-width:1000px){.landscape img{object-position:50% 100%}}
 .landscape canvas{cursor:grab}
 .landscape canvas:active{cursor:grabbing}
+
+.brand-logo{display:block;width:68px;height:68px;object-fit:contain}.completion-logo{display:block;width:68px;height:68px;object-fit:contain;margin:0 auto 24px}@media(max-width:600px),(max-height:700px){.brand-logo{width:48px;height:48px}}@media(max-height:500px) and (min-width:600px){.completion-logo{display:none}}

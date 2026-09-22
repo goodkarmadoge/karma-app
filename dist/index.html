@@ -6,7 +6,8 @@
   <meta name="theme-color" content="#f4f0e6">
   <meta name="description" content="Daily Karma meditation. Five minutes of guided Eastern philosophy inside a living ink landscape.">
   <title>Karma · Daily meditation</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23f4f0e6'/%3E%3Ccircle cx='32' cy='32' r='19' fill='none' stroke='%239e2b25' stroke-width='3' stroke-dasharray='108 12' transform='rotate(-40 32 32)'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/png" href="assets/karma-logo.png">
+  <link rel="apple-touch-icon" href="assets/karma-logo.png">
   <link rel="preload" as="image" href="assets/artwork/15.webp" fetchpriority="high">
   <link rel="preload" as="font" href="assets/cormorant.woff2" type="font/woff2" crossorigin>
   <link rel="preload" as="font" href="assets/jost-500.woff2" type="font/woff2" crossorigin>
@@ -37,7 +38,7 @@
 
   <button id="interface-toggle" class="interface-toggle" type="button" aria-label="Hide interface" aria-pressed="false">Hide</button>
   <header class="header">
-    <a class="brand" href="./" aria-label="Karma home"><span class="enso" aria-hidden="true"></span><span>Karma</span></a>
+    <a class="brand" href="./" aria-label="Karma home"><img class="brand-logo" src="assets/karma-logo.png" alt="Karma" width="68" height="68"></a>
     <div class="header-actions"><button class="text-button signin-button" id="signin-open" type="button" hidden>Sign in</button><button class="icon-button settings-button" id="settings-open" aria-label="Open meditation settings"><svg><use href="#i-settings"/></svg></button></div>
   </header>
 
@@ -88,7 +89,7 @@
 
     <section id="complete" class="screen complete-screen" aria-labelledby="complete-title" hidden>
       <div class="completion-content">
-        <span class="enso completion-mark" aria-hidden="true"></span>
+        <img class="completion-logo" src="assets/karma-logo.png" alt="" width="68" height="68">
         <p class="eyebrow">TODAY'S PRACTICE COMPLETE</p>
         <h1 id="complete-title">Rest is an<br><em>act of care.</em></h1>
         <p>You gave yourself five minutes.<br>Carry one gentle intention into your day.</p>
