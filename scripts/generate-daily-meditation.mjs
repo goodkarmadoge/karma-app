@@ -18,64 +18,9 @@ const voices = [
   { narrator: 'sarah', label: 'Sarah', voiceId: 'EXAVITQu4vr4xnSDxMaL' },
 ];
 
-const themes = [
-  {
-    topic: 'Karma', title: 'Intention Before Action', tradition: 'Karma yoga inspired practice',
-    principle: 'Karma begins with intention. Before an action becomes a result, it is a choice about what we place into the world.',
-    image: 'Imagine a single seed resting in dark soil. It does not rush toward the light. It receives water, warmth, and time, then responds.',
-    inquiry: 'Notice one intention beneath today’s effort. It may be to contribute, to learn, or to care. Let the intention become simple and honest.',
-    action: 'Choose one small action that matches your intention. A thoughtful reply. A patient beginning. A promise kept without needing recognition.',
-  },
-  {
-    topic: 'Patience', title: 'Trust the Season', tradition: 'Zen inspired practice',
-    principle: 'Patience is active steadiness. It lets wise action ripen without demanding that every result arrive now.',
-    image: 'Picture bamboo moving in a light wind. It bends, returns, and keeps growing through seasons that cannot be hurried.',
-    inquiry: 'Bring to mind one result you have been pressing toward. Feel the energy of that effort, then loosen your grip around the timetable.',
-    action: 'Choose the next faithful step and let it be enough. Progress can be quiet. A path still unfolds when you walk it without strain.',
-  },
-  {
-    topic: 'Deliberation', title: 'The Clear Pause', tradition: 'Daoist inspired practice',
-    principle: 'Deliberation creates space between impulse and action. In that space, what matters can become easier to see.',
-    image: 'Imagine a cup of cloudy water resting on a table. Left undisturbed, the sediment settles and the water becomes clear by itself.',
-    inquiry: 'Notice a decision asking for your attention. You do not need to solve it now. Let the facts, feelings, and values rest beside one another.',
-    action: 'Carry one clear question into the day: what choice creates the least unnecessary force? Let your answer arrive at a human pace.',
-  },
-  {
-    topic: 'Exploration', title: 'Beginner’s Mind', tradition: 'Zen inspired practice',
-    principle: 'A beginner’s mind meets experience before naming it. Curiosity opens paths that certainty can overlook.',
-    image: 'Picture a mountain trail disappearing into morning mist. You cannot see the whole route, yet the next stone is visible beneath your feet.',
-    inquiry: 'Notice where certainty has become tight. Allow one familiar problem to become new again. What have you not yet asked or noticed?',
-    action: 'Take one curious step today. Listen before concluding. Try a smaller experiment. Let discovery matter more than appearing certain.',
-  },
-  {
-    topic: 'Equanimity', title: 'A Steady Center', tradition: 'Buddhist inspired practice',
-    principle: 'Equanimity is a balanced heart. It makes room for difficulty and delight without being carried away by either one.',
-    image: 'Imagine a mountain reflected in changing water. Wind alters the reflection, while the mountain remains grounded beneath the open sky.',
-    inquiry: 'Notice what is pulling you forward or pushing you away. Name it gently, without making it an enemy or a command.',
-    action: 'Meet one changing moment with a steady response. Pause, feel your feet, and choose the action that respects the whole situation.',
-  },
-  {
-    topic: 'Non-attachment', title: 'Open Hands', tradition: 'Eastern philosophy inspired practice',
-    principle: 'Non-attachment means caring fully without trying to possess every outcome. Effort can be sincere while the hands remain open.',
-    image: 'Picture an autumn leaf carried along a clear stream. The water holds it for a while, then lets it continue around the bend.',
-    inquiry: 'Bring to mind one outcome you are holding tightly. Keep the care, the skill, and the effort. Soften the demand for certainty.',
-    action: 'Do the work that belongs to you, then release the part that does not. Leave a little room for life to answer in its own way.',
-  },
-  {
-    topic: 'Right Effort', title: 'Effort Without Strain', tradition: 'Buddhist inspired practice',
-    principle: 'Right effort is energy guided by wisdom. It supports what is helpful and stops feeding what leaves the mind depleted.',
-    image: 'Imagine a gardener tending a small courtyard. Water goes where it is needed. Weeds are removed gently. Growth is invited, not forced.',
-    inquiry: 'Notice where effort feels clean and where it feels contracted. Your body often knows the difference before your thoughts explain it.',
-    action: 'Give today’s best energy to one meaningful task. Let one unnecessary struggle wait. Sustainable effort is a form of respect.',
-  },
-  {
-    topic: 'Compassion', title: 'Strength with Warmth', tradition: 'Metta inspired practice',
-    principle: 'Compassion joins clear seeing with the wish to reduce suffering. It is warmth with boundaries, courage, and practical action.',
-    image: 'Picture a lantern beside a dark path. It does not light the whole journey. It offers enough warmth and clarity for the next few steps.',
-    inquiry: 'Notice the person within you who has been working hard. Speak inwardly with the same steadiness you would offer a trusted friend.',
-    action: 'Let one choice today combine strength with warmth. Be direct without becoming hard. Be kind without abandoning what matters.',
-  },
-];
+// The library. Entries carrying a `source` field are authored in the handscroll
+// build and written here by its scripts/export-library.mjs; edit those there.
+const themes = JSON.parse(await readFile(new URL('./themes.json', import.meta.url), 'utf8'));
 
 function singaporeDate() {
   const parts = new Intl.DateTimeFormat('en-CA', {
