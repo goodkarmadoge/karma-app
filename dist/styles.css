@@ -12,7 +12,7 @@ body:not([data-state='home']) .settings-button{visibility:hidden}body[data-state
 @media(max-width:600px){.header{padding:calc(21px + env(safe-area-inset-top)) 24px 0}.brand{font-size:30px}.screen{padding:calc(118px + env(safe-area-inset-top)) 22px calc(17px + env(safe-area-inset-bottom));min-height:100dvh}.landscape img{object-fit:cover;object-position:50% 100%}.paper-veil{background:linear-gradient(#f4f0e64d,#f4f0e659 40%,#f4f0e600 70%)}h1{font-size:58px;line-height:1.02;letter-spacing:-.045em;margin-bottom:20px}.eyebrow{font-size:10px;letter-spacing:.18em;margin-bottom:20px}.intro{font-size:15px;margin-bottom:22px}.mobile-break{display:block}.session-line{height:19px;margin-bottom:15px}.daily-session h2{font-size:26px}.daily-session p{font-size:12px}.daily-session{margin-bottom:22px}.primary{min-height:54px;padding:0 27px;font-size:13px}.home-bottom{padding-top:70px}.headphones{font-size:11px;margin-bottom:11px}.bottom-links{gap:25px}.text-button{font-size:11px}.home-status{font-size:12px}.session-screen{padding-top:135px}.session-heading h1{font-size:39px}.session-heading p:last-child{font-size:13px}.player-controls{gap:9px;padding:8px 12px}.player-area{padding-top:25px}.caption{font-size:16px;padding:15px 18px;margin-bottom:12px}.session-screen .eyebrow{font-size:10px}.completion-content h1{font-size:64px}.complete-screen{padding-top:138px}.completion-content>p:not(.eyebrow){font-size:15px}.completion-content .practice-note{font-size:12px}.completion-mark{margin-bottom:25px}dialog{padding:22px 27px 28px}}
 @media(max-width:600px) and (min-height:800px){.screen{padding-top:calc(145px + env(safe-area-inset-top))}h1{font-size:62px}.home-bottom{padding-top:95px}.intro{margin-bottom:29px}.daily-session{margin-bottom:27px}}
 @media(max-height:700px){.screen{padding-top:91px}.header{padding-top:19px}.home-screen h1{font-size:53px}.home-screen .eyebrow{margin-bottom:12px}.intro{margin-bottom:15px}.session-line{height:12px;margin-bottom:10px}.daily-session{margin-bottom:17px}.home-bottom{padding-top:22px}.headphones{margin-bottom:0}.home-status{margin-top:8px}.complete-screen h1{font-size:58px}.complete-screen{padding-top:100px}.completion-mark{margin-bottom:18px}.completion-content .practice-note{margin:18px 0}}
-@media(max-height:500px) and (min-width:600px){.home-screen{padding-top:90px}.home-content{max-width:900px;display:grid;grid-template-columns:1.2fr 1fr;column-gap:45px}.home-content>.eyebrow,.home-content>h1,.home-content>.intro{grid-column:1}.home-content>.eyebrow{margin-bottom:12px}.home-content>h1{grid-row:2 / 4}.home-content>.intro{grid-row:4}.daily-session{grid-column:2;grid-row:2;align-self:end}.primary{grid-column:2;grid-row:3;justify-self:center;align-self:start}.home-status{grid-column:2;grid-row:4}.home-bottom{padding-top:5px}.headphones{display:none}.session-screen{padding-top:95px}.session-heading .eyebrow{display:none}.session-heading h1{font-size:35px}.caption{font-size:14px;padding:9px 16px;max-width:65%;margin:8px auto}.player-area{padding-top:0}.reveal-controls{margin:0;min-height:30px}.player-controls{padding:2px 12px}.complete-screen{padding-top:90px}.completion-mark{display:none}.completion-content h1{font-size:45px}.completion-content h1 br{display:none}.completion-content>p{margin-bottom:10px}.completion-content .practice-note{margin:10px 0}}
+@media(max-height:500px) and (min-width:600px){.home-screen{padding-top:90px}.home-content{max-width:900px;display:grid;grid-template-columns:1.2fr 1fr;column-gap:45px}.home-content>.eyebrow,.home-content>.home-lede{grid-column:1;justify-self:center}.home-content>.home-lede{grid-row:2 / 5}.daily-session{grid-column:2;grid-row:2;align-self:end}.primary{grid-column:2;grid-row:3;justify-self:center;align-self:start}.home-status{grid-column:2;grid-row:4}.home-bottom{padding-top:5px}.headphones{display:none}.session-screen{padding-top:95px}.session-heading .eyebrow{display:none}.session-heading h1{font-size:35px}.caption{font-size:14px;padding:9px 16px;max-width:65%;margin:8px auto}.player-area{padding-top:0}.reveal-controls{margin:0;min-height:30px}.player-controls{padding:2px 12px}.complete-screen{padding-top:90px}.completion-mark{display:none}.completion-content h1{font-size:45px}.completion-content h1 br{display:none}.completion-content>p{margin-bottom:10px}.completion-content .practice-note{margin:10px 0}}
 @media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition-duration:.15s!important;scroll-behavior:auto!important}}
 @media(max-width:600px){.home-screen h1{font-size:clamp(42px,12.9vw,54px);line-height:1.04}.paper-veil{background:linear-gradient(#f4f0e64d,#f4f0e659 40%,#f4f0e600 70%,#f4f0e6bd 100%)}.home-bottom .text-button{font-size:12px}.headphones{font-size:12px}}
 .player-actions{display:flex;align-items:center;gap:10px;margin-bottom:8px}.player-actions .reveal-controls{margin-bottom:0}.music-toggle{background:#f4f0e6de;border-radius:2px;padding:6px 14px;font-size:12px;text-decoration:none;min-height:44px}.music-toggle[aria-pressed='true']{color:#676b5f}.music-status{max-width:310px;font-size:12px;line-height:1.45;background:#f4f0e6ed;padding:8px 12px;margin-bottom:9px}#settings-dialog{max-height:90dvh}.reveal-controls{min-height:44px}
@@ -55,7 +55,30 @@ body:not([data-state='home']) #artwork-hint,body:not([data-state='home']) #artwo
 /* Two of the paintings are night scenes. There the same card is ink, not paper. */
 body[data-art-tone='dark']{--card:22,24,29;--card-ink:#f2efe6;--card-muted:#c2c7bc;--card-accent:#cfd6c4;--card-edge:rgba(244,240,230,.12);--pill-edge:rgba(244,240,230,.32);--card-shadow:0 18px 48px -20px rgba(0,0,0,.6)}
 
-.home-content{max-width:min(100%,34rem);margin:0 auto;padding:26px 26px 20px;border-radius:22px;color:var(--card-ink);background:rgba(var(--card),.94);box-shadow:inset 0 0 0 1px var(--card-edge),var(--card-shadow);backdrop-filter:blur(20px) saturate(112%);-webkit-backdrop-filter:blur(20px) saturate(112%);transition:background-color .6s ease,box-shadow .6s ease}
+.home-content{max-width:min(100%,34rem);margin:0 auto;color:var(--card-ink);display:flex;flex-direction:column;align-items:center;gap:13px}
+/* Several small plates rather than one sheet. A single card large enough to hold
+   every line covers the part of the painting worth looking at; three that each
+   hug their own text leave bands of it visible between them. The opacity is .8
+   so the art reads through, and the blur behind is what keeps the words legible
+   at that opacity -- it smooths whatever the painting is doing underneath, so
+   contrast does not depend on which painting is showing. */
+.home-plate{width:fit-content;max-width:100%;border-radius:18px;background:rgba(var(--card),.8);box-shadow:inset 0 0 0 1px var(--card-edge),var(--card-shadow);backdrop-filter:blur(22px) saturate(118%);-webkit-backdrop-filter:blur(22px) saturate(118%);transition:background-color .6s ease,box-shadow .6s ease}
+.home-content>.eyebrow{margin:0;padding:10px 20px;border-radius:999px}
+.home-lede{padding:20px 28px 22px}
+.home-lede h1{margin-bottom:14px}
+.home-lede .intro{margin:0}
+.home-content>.daily-session{margin:0;padding:18px 28px 16px}
+/* The tick divided the session from the intro when both sat on one card. The
+   plate edge does that now, so it is just dead height. */
+.home-content>.daily-session .session-line{display:none}
+.home-content>.primary{margin-top:3px}
+/* The status line has no plate, so it carries its own halo instead. Both tokens
+   flip with the painting's tone, so it works over a night scene too. */
+.home-content>.home-status{text-shadow:0 1px 6px rgba(var(--card),.92),0 0 16px rgba(var(--card),.7)}
+/* The plate cross-fades its background over .6s when the painting's tone flips.
+   The ink has to cross-fade with it, or the words go light while the plate is
+   still pale and the whole thing washes out mid-swipe. */
+.home-content h1,.home-content h2,.home-content h1 em,.home-content h2 em,.home-content .eyebrow,.home-content .intro,.home-content #home-daily-meta,.home-content .home-status,.home-content .voice-link{transition:color .6s ease}
 .home-content h1,.home-content .daily-session h2{color:var(--card-ink)}
 .home-content h1 em,.home-content h2 em{color:var(--card-accent)}
 .home-content .eyebrow,.home-content .intro,.home-content #home-daily-meta,.home-content .home-status{color:var(--card-muted)}
@@ -93,18 +116,18 @@ body[data-art-tone='dark'] .voice-link:hover .voice-link-action{background:rgba(
 /* With the card doing the legibility work, the wide veil can lift off the artwork. */
 @media(min-width:601px){
 body[data-state='home'] .paper-veil{background:linear-gradient(180deg,rgba(244,240,230,.6),rgba(244,240,230,.34) 34%,rgba(244,240,230,0) 62%)}
-.home-content{padding:30px 34px 24px}
+.home-lede{padding:24px 34px 26px}.home-content>.daily-session{padding:20px 34px 18px}
 }
 @media(max-width:600px){
 .home-screen{padding-top:calc(88px + env(safe-area-inset-top))}
-.home-content{padding:22px 20px 18px;border-radius:20px}
+.home-content{gap:11px}.home-plate{border-radius:16px}.home-lede{padding:17px 20px 19px}.home-content>.daily-session{padding:15px 20px 13px}.home-content>.eyebrow{padding:8px 16px}
 .artwork-hint{gap:6px;max-width:calc(100% - 12px)}.artwork-hint button{width:42px;height:42px;font-size:24px}.painting-badge{column-gap:10px;padding:6px 14px 7px}
 .artwork-hint #artwork-title{font-size:17px}
 .voice-link{font-size:12px;padding-left:12px}
 }
 @media(max-height:700px){
 .home-screen{padding-top:72px}
-.home-content{padding:18px 20px 14px}
+.home-content{gap:9px}.home-lede{padding:13px 20px 15px}.home-content>.daily-session{padding:13px 20px 11px}
 .voice-link{margin-top:9px}
 }
 
@@ -112,6 +135,8 @@ body[data-state='home'] .paper-veil{background:linear-gradient(180deg,rgba(244,2
    bottom links are already lifted. */
 body[data-art-tone='dark'] .header,body[data-art-tone='dark'] .header .text-button{color:#f5f1e7;text-shadow:0 1px 5px #141b20}
 body[data-art-tone='dark'] .settings-button{border-color:rgba(245,241,231,.38)}
+/* The Hide pill had one hardcoded paper background, which reads as a lit blob over a night painting. */
+body[data-art-tone='dark'] .interface-toggle{background:rgba(22,24,29,.86);border-color:rgba(244,240,230,.26);color:#f2efe6}
 body[data-art-tone='dark'] .header .icon-button:hover{background:rgba(245,241,231,.12)}
 body[data-art-tone='dark'] .header .text-button:focus-visible,body[data-art-tone='dark'] .header .icon-button:focus-visible{outline-color:#f5f1e7}
 
@@ -125,3 +150,7 @@ body[data-art-tone='dark'] .header .text-button:focus-visible,body[data-art-tone
 .landscape canvas:active{cursor:grabbing}
 
 .brand-logo{display:block;width:68px;height:68px;object-fit:contain}.completion-logo{display:block;width:68px;height:68px;object-fit:contain;margin:0 auto 24px}@media(max-width:600px),(max-height:700px){.brand-logo{width:48px;height:48px}}@media(max-height:500px) and (min-width:600px){.completion-logo{display:none}}
+/* The landscape two-column grid is declared earlier in this file than the flex
+   column that .home-content now uses, so at equal specificity the flex wins and
+   the grid never applies. Restated here, after it, to take effect again. */
+@media(max-height:500px) and (min-width:600px){.home-content{display:grid;max-width:900px;grid-template-columns:1.2fr 1fr;gap:12px 45px;align-items:center}.home-content>.daily-session,.home-content>.primary{justify-self:center}}
