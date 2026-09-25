@@ -1,51 +1,51 @@
 {
-  "date": "2026-09-24",
+  "date": "2026-09-25",
   "durationSeconds": 300,
   "voiceId": "EXAVITQu4vr4xnSDxMaL",
   "narrator": "sarah",
-  "title": "A Reason to Rise",
-  "topic": "Ikigai",
+  "title": "The Golden Seam",
+  "topic": "Kintsugi",
   "tradition": "Japanese inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 19.982,
-      "text": "This is the Daily Karma. Today’s practice is ikigai: a reason to rise. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 19.61,
+      "text": "This is the Daily Karma. Today’s practice is kintsugi: the golden seam. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 40.777,
-      "text": "Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be."
+      "end": 41.288,
+      "text": "Notice the weight of your body being held. Let the tongue rest and the shoulders fall. Allow this moment to ask nothing from you."
     },
     {
       "start": 58,
-      "end": 69.053,
+      "end": 68.17,
       "text": "Notice one breath arriving and one breath leaving. Do not improve it. Let each breath return you to the direct experience of this moment."
     },
     {
       "start": 84,
-      "end": 94.96,
-      "text": "Ikigai is often described as a grand purpose. It is smaller than that. It is the specific, ordinary reason you got up today, and it may be very small."
+      "end": 95.842,
+      "text": "Kintsugi repairs broken pottery with gold. The crack is not concealed or made to look new. It is filled and traced, and becomes the most looked at part of the bowl."
     },
     {
       "start": 111,
-      "end": 120.799,
-      "text": "It might be someone who would notice your absence. A plant that needs water. Work left half done. Bread you wanted to eat while it was still warm."
+      "end": 121.82,
+      "text": "Picture the seam: a thin gold river running across the glaze. You can see exactly where it broke. The bowl is not pretending, and it still holds water."
     },
     {
       "start": 140,
-      "end": 149.985,
+      "end": 150.17,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 178.263,
-      "text": "Let one of those come to mind. Do not weigh it or rank it. Notice only where you feel it in the body when you think of it, and breathe there a while."
+      "end": 176.963,
+      "text": "Bring attention to something in you that healed. Do not open it. Let it simply be there, breathing, without being called damage."
     },
     {
       "start": 196,
-      "end": 205.056,
-      "text": "I will leave some quiet here. You do not need to empty the mind. Notice what appears, release the story, and return to breathing."
+      "end": 205.427,
+      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
     },
     {
       "start": 235,
@@ -54,12 +54,12 @@
     },
     {
       "start": 257,
-      "end": 264.988,
-      "text": "Give that reason ten minutes before the day fills up. Not the whole of it. Ten minutes, early, while it still belongs to you."
+      "end": 266.892,
+      "text": "Let one repaired thing be visible today. An apology already made. A habit already changed. Let it count rather than hiding it."
     },
     {
       "start": 283,
-      "end": 293.31,
+      "end": 292.985,
       "text": "Notice the sounds around you. Invite movement back into your hands and feet. Open your eyes softly. Thank you for meeting this day with Karma."
     }
   ]
