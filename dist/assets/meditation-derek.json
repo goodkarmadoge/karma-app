@@ -1,65 +1,65 @@
 {
-  "date": "2026-09-28",
+  "date": "2026-09-29",
   "durationSeconds": 300,
   "voiceId": "0X63EirRQmRS0K8fLhOQ",
   "narrator": "derek",
-  "title": "The Clear Pause",
-  "topic": "Deliberation",
-  "tradition": "Daoist inspired practice",
+  "title": "Beginner’s Mind",
+  "topic": "Exploration",
+  "tradition": "Zen inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 18.263,
-      "text": "This is the Daily Karma. Today’s practice is deliberation: the clear pause. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 18.96,
+      "text": "This is the Daily Karma. Today’s practice is exploration: beginner’s mind. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 40.638,
-      "text": "Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be."
+      "end": 40.266,
+      "text": "Notice the weight of your body being held. Let the tongue rest and the shoulders fall. Allow this moment to ask nothing from you."
     },
     {
       "start": 58,
-      "end": 67.242,
+      "end": 66.359,
       "text": "Follow the next inhale from its beginning, then the exhale to its end. Let the breath be natural, unforced, and entirely enough."
     },
     {
       "start": 84,
-      "end": 91.663,
-      "text": "Deliberation creates space between impulse and action. In that space, what matters can become easier to see."
+      "end": 91.477,
+      "text": "A beginner’s mind meets experience before naming it. Curiosity opens paths that certainty can overlook."
     },
     {
       "start": 111,
-      "end": 120.427,
-      "text": "Imagine a cup of cloudy water resting on a table. Left undisturbed, the sediment settles and the water becomes clear by itself."
+      "end": 120.567,
+      "text": "Picture a mountain trail disappearing into morning mist. You cannot see the whole route, yet the next stone is visible beneath your feet."
     },
     {
       "start": 140,
-      "end": 150.356,
+      "end": 150.635,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 178.124,
-      "text": "Notice a decision asking for your attention. You do not need to solve it now. Let the facts, feelings, and values rest beside one another."
+      "end": 177.985,
+      "text": "Notice where certainty has become tight. Allow one familiar problem to become new again. What have you not yet asked or noticed?"
     },
     {
       "start": 196,
-      "end": 205.381,
-      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
+      "end": 204.173,
+      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
     },
     {
       "start": 235,
-      "end": 244.009,
+      "end": 244.288,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 266.009,
-      "text": "Carry one clear question into the day: what choice creates the least unnecessary force? Let your answer arrive at a human pace."
+      "end": 267.913,
+      "text": "Take one curious step today. Listen before concluding. Try a smaller experiment. Let discovery matter more than appearing certain."
     },
     {
       "start": 283,
-      "end": 292.659,
+      "end": 292.752,
       "text": "Take one fuller breath. Feel the space beyond your body and let your eyes open in their own time. Thank you for practicing with Karma."
     }
   ]
