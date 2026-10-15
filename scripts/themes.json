@@ -120,5 +120,105 @@
     "inquiry": "Bring attention to something in you that healed. Do not open it. Let it simply be there, breathing, without being called damage.",
     "action": "Let one repaired thing be visible today. An apology already made. A habit already changed. Let it count rather than hiding it.",
     "source": "handscroll:kintsugi"
+  },
+  {
+    "topic": "Wabi-sabi",
+    "title": "The Unfinished Bowl",
+    "tradition": "Japanese inspired practice",
+    "principle": "Wabi-sabi finds beauty in what is worn, uneven and unfinished. Not in spite of those qualities, but because of them. Nothing becomes lovely by becoming perfect.",
+    "image": "A tea bowl thrown slightly off centre, glazed unevenly, its rim a little low on one side. It has been used for two hundred years, and that is why it is treasured.",
+    "inquiry": "Find something in yourself you have been treating as a draft of someone better. Let it be finished as it is, at least for the length of this breath.",
+    "action": "Let one imperfect thing stand today. The crooked shelf. The reply that was good enough. The day that went sideways and still ended.",
+    "source": "handscroll:wabi-sabi"
+  },
+  {
+    "topic": "Mono no aware",
+    "title": "The Petal Falling",
+    "tradition": "Japanese inspired practice",
+    "principle": "Mono no aware is the quiet ache at the heart of lovely things, because they do not stay. It is not grief. It is the tenderness that comes with paying attention.",
+    "image": "Blossom coming off a branch in a light wind. Nobody watching wishes it were plastic. The falling is not the flaw in the flower; it is the whole of it.",
+    "inquiry": "Rest on the breath you are in. It is leaving as you hold it. You are not losing it. You are being present for it while it is here.",
+    "action": "Let one ordinary thing register today as though it were rare. A face across a table. Light on a wall at a particular hour.",
+    "source": "handscroll:mono-no-aware"
+  },
+  {
+    "topic": "Ma",
+    "title": "The Space Between",
+    "tradition": "Japanese inspired practice",
+    "principle": "Ma is the interval. Not empty space, but the space that gives everything else its shape. A room is useful because of the part with nothing in it.",
+    "image": "Ink on paper with wide margins left bare. The painter did not run out of paper. The emptiness is where the mountain gets to be far away.",
+    "inquiry": "Return to the pause at the end of your out-breath. Do not stretch it or hurry it. Be in the interval rather than racing toward the next thing.",
+    "action": "Leave one gap on purpose today. Five minutes between two meetings. A walk taken slowly. Silence after a question instead of a quick answer.",
+    "source": "handscroll:ma"
+  },
+  {
+    "topic": "Yugen",
+    "title": "More Than Is Shown",
+    "tradition": "Noh inspired practice",
+    "principle": "Yugen is the sense that there is more than what is being shown. Not a secret to be solved, but a depth felt at the edge of a thing without reaching its end.",
+    "image": "Mountains going back into mist, ridge behind ridge, until you cannot say how far it runs. The mist is not hiding the view. The mist is the view.",
+    "inquiry": "Let attention go to the edge of what you can feel, where sensation turns vague. Stay there without trying to bring it into focus.",
+    "action": "Let one thing stay unexplained today. A mood you do not account for. A piece of music you do not analyse. Let it keep its depth.",
+    "source": "handscroll:yugen"
+  },
+  {
+    "topic": "Ichigo ichie",
+    "title": "Once, and Only Now",
+    "tradition": "Tea ceremony inspired practice",
+    "principle": "Ichigo ichie comes from the tea room: one meeting, one chance. Even with the same people in the same room, the gathering is new, because nothing has been here twice.",
+    "image": "A host preparing a bowl of tea as though it were the only one, because for that guest, on that afternoon, in that light, it is.",
+    "inquiry": "Come back to this breath. Not breathing in general. This one, with whatever mood you brought to it. It is the only version there will be.",
+    "action": "Treat one ordinary meeting as unrepeatable today. The same colleague. The same walk home. It is the same in name only.",
+    "source": "handscroll:ichigo-ichie"
+  },
+  {
+    "topic": "Oubaitori",
+    "title": "Each in Its Season",
+    "tradition": "Japanese inspired practice",
+    "principle": "Oubaitori names four trees: cherry, plum, peach and apricot. Each blossoms in its own season, in its own way. None of them is late. The comparison does not apply.",
+    "image": "A plum opening in cold air while the cherry stands bare beside it. The cherry is not failing. It is doing what it does, at the hour it does it.",
+    "inquiry": "Notice if some part of you is running a comparison right now, even about how this is going. Let the measuring stop for a moment and just breathe.",
+    "action": "Notice one comparison today and set it down. Someone further along. Someone younger. Let them be in their season and stay in yours.",
+    "source": "handscroll:oubaitori"
+  },
+  {
+    "topic": "Mushin",
+    "title": "Without Watching Yourself",
+    "tradition": "Zen inspired practice",
+    "principle": "Mushin is no-mind: acting without the commentary that watches you act. Not blankness, but the quiet that arrives when self-consciousness stops narrating.",
+    "image": "A hand catching something falling, before the thought arrives. It was not faster thinking. It was the absence of thinking getting in the way.",
+    "inquiry": "Notice the voice describing this practice while you do it. Do not argue with it. Let attention sit with the breath instead of the commentary.",
+    "action": "Do one thing today without narrating it. Wash up. Walk somewhere. Let the commentary idle and the hands get on with it.",
+    "source": "handscroll:mushin"
+  },
+  {
+    "topic": "Zanshin",
+    "title": "After the Arrow",
+    "tradition": "Kyudo inspired practice",
+    "principle": "Zanshin is remaining mind: the attention that stays after the act is finished. In archery the posture is held after the arrow has gone. The shot is not over at release.",
+    "image": "The archer, bow still open, eyes still down the range, long after the arrow has landed. Nothing is being achieved. The form is simply being completed.",
+    "inquiry": "Finish this breath all the way out before taking the next. Let the ending be as attended as the beginning. Most of us leave early.",
+    "action": "Finish one thing properly today. Close the conversation rather than drifting out of it. Put the tool back. Stay for the last minute of something.",
+    "source": "handscroll:zanshin"
+  },
+  {
+    "topic": "Shinrin yoku",
+    "title": "Among the Trees",
+    "tradition": "Japanese inspired practice",
+    "principle": "Shinrin yoku is not a walk with a destination. It is letting the senses take in a place without turning any of it into a task. Nothing is covered or achieved.",
+    "image": "Standing among tall trees with the light coming down in pieces. Bark, damp earth, movement somewhere in the branches. You are not studying it; you are in it.",
+    "inquiry": "Let one sense lead for a moment. Sound, probably, with the eyes closed. Let it arrive without naming it or deciding what it means.",
+    "action": "Give five minutes to your senses today. Outside if you can, a window if you cannot. Look without photographing, listen without naming.",
+    "source": "handscroll:shinrin-yoku"
+  },
+  {
+    "topic": "Yutori",
+    "title": "Room Left Over",
+    "tradition": "Japanese inspired practice",
+    "principle": "Yutori is margin kept on purpose: the time, space or energy you deliberately do not spend. Not what is left over at the end, but what you set aside first.",
+    "image": "A train timetable built with slack in it. The slack looks like waste until one train runs late, and then it is the only reason the day does not fall over.",
+    "inquiry": "Let your breathing stay a little short of full. Not restricted, just unhurried. Notice that leaving room feels different from running out of it.",
+    "action": "Keep some margin back today. Leave earlier than you need to. End one thing before you are empty. Let something be under-filled on purpose.",
+    "source": "handscroll:yutori"
   }
 ]
