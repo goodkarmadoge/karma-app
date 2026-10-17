@@ -1,65 +1,65 @@
 {
-  "date": "2026-10-17",
+  "date": "2026-10-18",
   "durationSeconds": 300,
   "voiceId": "EXAVITQu4vr4xnSDxMaL",
   "narrator": "sarah",
-  "title": "After the Arrow",
-  "topic": "Zanshin",
-  "tradition": "Kyudo inspired practice",
+  "title": "Among the Trees",
+  "topic": "Shinrin yoku",
+  "tradition": "Japanese inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 19.889,
-      "text": "This is the Daily Karma. Today’s practice is zanshin: after the arrow. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 19.749,
+      "text": "This is the Daily Karma. Today’s practice is shinrin yoku: among the trees. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 40.498,
-      "text": "Settle into a position that can support both ease and alertness. Relax the muscles around your eyes and let the day become quieter."
+      "end": 41.52,
+      "text": "Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be."
     },
     {
       "start": 58,
       "end": 67.613,
-      "text": "Follow the next inhale from its beginning, then the exhale to its end. Let the breath be natural, unforced, and entirely enough."
+      "text": "Feel the quiet rhythm of breathing. When the mind moves ahead, come back to one simple inhale and one unhurried exhale."
     },
     {
       "start": 84,
-      "end": 96.399,
-      "text": "Zanshin is remaining mind: the attention that stays after the act is finished. In archery the posture is held after the arrow has gone. The shot is not over at release."
+      "end": 95.889,
+      "text": "Shinrin yoku is not a walk with a destination. It is letting the senses take in a place without turning any of it into a task. Nothing is covered or achieved."
     },
     {
       "start": 111,
-      "end": 122.378,
-      "text": "The archer, bow still open, eyes still down the range, long after the arrow has landed. Nothing is being achieved. The form is simply being completed."
+      "end": 122.331,
+      "text": "Standing among tall trees with the light coming down in pieces. Bark, damp earth, movement somewhere in the branches. You are not studying it; you are in it."
     },
     {
       "start": 140,
-      "end": 149.52,
+      "end": 149.66,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 176.591,
-      "text": "Finish this breath all the way out before taking the next. Let the ending be as attended as the beginning. Most of us leave early."
+      "end": 177.567,
+      "text": "Let one sense lead for a moment. Sound, probably, with the eyes closed. Let it arrive without naming it or deciding what it means."
     },
     {
       "start": 196,
-      "end": 205.567,
-      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
+      "end": 205.985,
+      "text": "I will leave some quiet here. You do not need to empty the mind. Notice what appears, release the story, and return to breathing."
     },
     {
       "start": 235,
-      "end": 244.938,
+      "end": 244.845,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 267.356,
-      "text": "Finish one thing properly today. Close the conversation rather than drifting out of it. Put the tool back. Stay for the last minute of something."
+      "end": 267.449,
+      "text": "Give five minutes to your senses today. Outside if you can, a window if you cannot. Look without photographing, listen without naming."
     },
     {
       "start": 283,
-      "end": 292.892,
+      "end": 292.799,
       "text": "Notice the sounds around you. Invite movement back into your hands and feet. Open your eyes softly. Thank you for meeting this day with Karma."
     }
   ]
