@@ -1,65 +1,65 @@
 {
-  "date": "2026-10-16",
+  "date": "2026-10-17",
   "durationSeconds": 300,
   "voiceId": "0X63EirRQmRS0K8fLhOQ",
   "narrator": "derek",
-  "title": "Without Watching Yourself",
-  "topic": "Mushin",
-  "tradition": "Zen inspired practice",
+  "title": "After the Arrow",
+  "topic": "Zanshin",
+  "tradition": "Kyudo inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 21.05,
-      "text": "This is the Daily Karma. Today’s practice is mushin: without watching yourself. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 17.799,
+      "text": "This is the Daily Karma. Today’s practice is zanshin: after the arrow. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 40.452,
-      "text": "Feel where your body meets the chair or floor. Soften your hands. Give gravity permission to carry a little more of your weight."
+      "end": 42.217,
+      "text": "Settle into a position that can support both ease and alertness. Relax the muscles around your eyes and let the day become quieter."
     },
     {
       "start": 58,
-      "end": 66.684,
+      "end": 66.313,
       "text": "Follow the next inhale from its beginning, then the exhale to its end. Let the breath be natural, unforced, and entirely enough."
     },
     {
       "start": 84,
-      "end": 96.585,
-      "text": "Mushin is no-mind: acting without the commentary that watches you act. Not blankness, but the quiet that arrives when self-consciousness stops narrating."
+      "end": 95.935,
+      "text": "Zanshin is remaining mind: the attention that stays after the act is finished. In archery the posture is held after the arrow has gone. The shot is not over at release."
     },
     {
       "start": 111,
-      "end": 120.799,
-      "text": "A hand catching something falling, before the thought arrives. It was not faster thinking. It was the absence of thinking getting in the way."
+      "end": 122.981,
+      "text": "The archer, bow still open, eyes still down the range, long after the arrow has landed. Nothing is being achieved. The form is simply being completed."
     },
     {
       "start": 140,
-      "end": 150.449,
+      "end": 149.752,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 177.242,
-      "text": "Notice the voice describing this practice while you do it. Do not argue with it. Let attention sit with the breath instead of the commentary."
+      "end": 176.777,
+      "text": "Finish this breath all the way out before taking the next. Let the ending be as attended as the beginning. Most of us leave early."
     },
     {
       "start": 196,
-      "end": 205.613,
-      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
+      "end": 205.381,
+      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
     },
     {
       "start": 235,
-      "end": 243.731,
+      "end": 243.824,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 265.731,
-      "text": "Do one thing today without narrating it. Wash up. Walk somewhere. Let the commentary idle and the hands get on with it."
+      "end": 267.124,
+      "text": "Finish one thing properly today. Close the conversation rather than drifting out of it. Put the tool back. Stay for the last minute of something."
     },
     {
       "start": 283,
-      "end": 292.474,
+      "end": 293.124,
       "text": "Notice the sounds around you. Invite movement back into your hands and feet. Open your eyes softly. Thank you for meeting this day with Karma."
     }
   ]
