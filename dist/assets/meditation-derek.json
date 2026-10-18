@@ -1,65 +1,65 @@
 {
-  "date": "2026-10-18",
+  "date": "2026-10-19",
   "durationSeconds": 300,
   "voiceId": "0X63EirRQmRS0K8fLhOQ",
   "narrator": "derek",
-  "title": "Among the Trees",
-  "topic": "Shinrin yoku",
+  "title": "Room Left Over",
+  "topic": "Yutori",
   "tradition": "Japanese inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 19.656,
-      "text": "This is the Daily Karma. Today’s practice is shinrin yoku: among the trees. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 18.542,
+      "text": "This is the Daily Karma. Today’s practice is yutori: room left over. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 39.941,
-      "text": "Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be."
+      "end": 40.452,
+      "text": "Notice the weight of your body being held. Let the tongue rest and the shoulders fall. Allow this moment to ask nothing from you."
     },
     {
       "start": 58,
-      "end": 66.313,
+      "end": 66.406,
       "text": "Feel the quiet rhythm of breathing. When the mind moves ahead, come back to one simple inhale and one unhurried exhale."
     },
     {
       "start": 84,
-      "end": 97.096,
-      "text": "Shinrin yoku is not a walk with a destination. It is letting the senses take in a place without turning any of it into a task. Nothing is covered or achieved."
+      "end": 96.307,
+      "text": "Yutori is margin kept on purpose: the time, space or energy you deliberately do not spend. Not what is left over at the end, but what you set aside first."
     },
     {
       "start": 111,
-      "end": 122.889,
-      "text": "Standing among tall trees with the light coming down in pieces. Bark, damp earth, movement somewhere in the branches. You are not studying it; you are in it."
+      "end": 122.146,
+      "text": "A train timetable built with slack in it. The slack looks like waste until one train runs late, and then it is the only reason the day does not fall over."
     },
     {
       "start": 140,
-      "end": 150.217,
+      "end": 150.356,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 177.752,
-      "text": "Let one sense lead for a moment. Sound, probably, with the eyes closed. Let it arrive without naming it or deciding what it means."
+      "end": 177.056,
+      "text": "Let your breathing stay a little short of full. Not restricted, just unhurried. Notice that leaving room feels different from running out of it."
     },
     {
       "start": 196,
-      "end": 204.916,
-      "text": "I will leave some quiet here. You do not need to empty the mind. Notice what appears, release the story, and return to breathing."
+      "end": 205.752,
+      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
     },
     {
       "start": 235,
-      "end": 244.474,
+      "end": 243.777,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 266.845,
-      "text": "Give five minutes to your senses today. Outside if you can, a window if you cannot. Look without photographing, listen without naming."
+      "end": 267.449,
+      "text": "Keep some margin back today. Leave earlier than you need to. End one thing before you are empty. Let something be under-filled on purpose."
     },
     {
       "start": 283,
-      "end": 294.471,
+      "end": 293.867,
       "text": "Notice the sounds around you. Invite movement back into your hands and feet. Open your eyes softly. Thank you for meeting this day with Karma."
     }
   ]
