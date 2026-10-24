@@ -1,36 +1,36 @@
 {
-  "date": "2026-10-23",
+  "date": "2026-10-24",
   "durationSeconds": 300,
   "voiceId": "EXAVITQu4vr4xnSDxMaL",
   "narrator": "sarah",
-  "title": "Beginner’s Mind",
-  "topic": "Exploration",
-  "tradition": "Zen inspired practice",
+  "title": "A Steady Center",
+  "topic": "Equanimity",
+  "tradition": "Buddhist inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 19.935,
-      "text": "This is the Daily Karma. Today’s practice is exploration: beginner’s mind. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 19.796,
+      "text": "This is the Daily Karma. Today’s practice is equanimity: a steady center. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 41.474,
-      "text": "Notice the weight of your body being held. Let the tongue rest and the shoulders fall. Allow this moment to ask nothing from you."
+      "end": 40.545,
+      "text": "Feel where your body meets the chair or floor. Soften your hands. Give gravity permission to carry a little more of your weight."
     },
     {
       "start": 58,
-      "end": 67.659,
+      "end": 66.406,
       "text": "Place attention where breathing feels clearest: the nose, chest, or belly. Receive each breath without needing to hold on to it."
     },
     {
       "start": 84,
-      "end": 92.266,
-      "text": "A beginner’s mind meets experience before naming it. Curiosity opens paths that certainty can overlook."
+      "end": 91.802,
+      "text": "Equanimity is a balanced heart. It makes room for difficulty and delight without being carried away by either one."
     },
     {
       "start": 111,
-      "end": 120.102,
-      "text": "Picture a mountain trail disappearing into morning mist. You cannot see the whole route, yet the next stone is visible beneath your feet."
+      "end": 120.613,
+      "text": "Imagine a mountain reflected in changing water. Wind alters the reflection, while the mountain remains grounded beneath the open sky."
     },
     {
       "start": 140,
@@ -39,27 +39,27 @@
     },
     {
       "start": 168,
-      "end": 177.66,
-      "text": "Notice where certainty has become tight. Allow one familiar problem to become new again. What have you not yet asked or noticed?"
+      "end": 176.173,
+      "text": "Notice what is pulling you forward or pushing you away. Name it gently, without making it an enemy or a command."
     },
     {
       "start": 196,
-      "end": 205.056,
-      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
+      "end": 204.684,
+      "text": "I will leave some quiet here. You do not need to empty the mind. Notice what appears, release the story, and return to breathing."
     },
     {
       "start": 235,
-      "end": 245.031,
+      "end": 244.985,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 267.217,
-      "text": "Take one curious step today. Listen before concluding. Try a smaller experiment. Let discovery matter more than appearing certain."
+      "end": 266.334,
+      "text": "Meet one changing moment with a steady response. Pause, feel your feet, and choose the action that respects the whole situation."
     },
     {
       "start": 283,
-      "end": 292.102,
+      "end": 293.124,
       "text": "Take one fuller breath. Feel the space beyond your body and let your eyes open in their own time. Thank you for practicing with Karma."
     }
   ]
