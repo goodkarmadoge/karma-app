@@ -1,51 +1,51 @@
 {
-  "date": "2026-11-06",
+  "date": "2026-11-07",
   "durationSeconds": 300,
   "voiceId": "EXAVITQu4vr4xnSDxMaL",
   "narrator": "sarah",
-  "title": "Once, and Only Now",
-  "topic": "Ichigo ichie",
-  "tradition": "Tea ceremony inspired practice",
+  "title": "Each in Its Season",
+  "topic": "Oubaitori",
+  "tradition": "Japanese inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 20.307,
-      "text": "This is the Daily Karma. Today’s practice is ichigo ichie: once, and only now. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 20.214,
+      "text": "This is the Daily Karma. Today’s practice is oubaitori: each in its season. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 40.684,
-      "text": "Settle into a position that can support both ease and alertness. Relax the muscles around your eyes and let the day become quieter."
+      "end": 41.427,
+      "text": "Feel the surface beneath you. Unclench your jaw. Let your shoulders settle. For these five minutes, there is nowhere else you need to be."
     },
     {
       "start": 58,
-      "end": 67.288,
-      "text": "Feel the quiet rhythm of breathing. When the mind moves ahead, come back to one simple inhale and one unhurried exhale."
+      "end": 67.102,
+      "text": "Place attention where breathing feels clearest: the nose, chest, or belly. Receive each breath without needing to hold on to it."
     },
     {
       "start": 84,
-      "end": 95.331,
-      "text": "Ichigo ichie comes from the tea room: one meeting, one chance. Even with the same people in the same room, the gathering is new, because nothing has been here twice."
+      "end": 97.421,
+      "text": "Oubaitori names four trees: cherry, plum, peach and apricot. Each blossoms in its own season, in its own way. None of them is late. The comparison does not apply."
     },
     {
       "start": 111,
-      "end": 120.195,
-      "text": "A host preparing a bowl of tea as though it were the only one, because for that guest, on that afternoon, in that light, it is."
+      "end": 121.774,
+      "text": "A plum opening in cold air while the cherry stands bare beside it. The cherry is not failing. It is doing what it does, at the hour it does it."
     },
     {
       "start": 140,
-      "end": 149.799,
+      "end": 150.635,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 177.009,
-      "text": "Come back to this breath. Not breathing in general. This one, with whatever mood you brought to it. It is the only version there will be."
+      "end": 177.706,
+      "text": "Notice if some part of you is running a comparison right now, even about how this is going. Let the measuring stop for a moment and just breathe."
     },
     {
       "start": 196,
-      "end": 206.495,
-      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
+      "end": 205.52,
+      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
     },
     {
       "start": 235,
@@ -54,12 +54,12 @@
     },
     {
       "start": 257,
-      "end": 266.334,
-      "text": "Treat one ordinary meeting as unrepeatable today. The same colleague. The same walk home. It is the same in name only."
+      "end": 267.217,
+      "text": "Notice one comparison today and set it down. Someone further along. Someone younger. Let them be in their season and stay in yours."
     },
     {
       "start": 283,
-      "end": 292.427,
+      "end": 292.567,
       "text": "Take one fuller breath. Feel the space beyond your body and let your eyes open in their own time. Thank you for practicing with Karma."
     }
   ]
