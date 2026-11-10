@@ -1,65 +1,65 @@
 {
-  "date": "2026-11-09",
+  "date": "2026-11-10",
   "durationSeconds": 300,
   "voiceId": "0X63EirRQmRS0K8fLhOQ",
   "narrator": "derek",
-  "title": "After the Arrow",
-  "topic": "Zanshin",
-  "tradition": "Kyudo inspired practice",
+  "title": "Among the Trees",
+  "topic": "Shinrin yoku",
+  "tradition": "Japanese inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 18.449,
-      "text": "This is the Daily Karma. Today’s practice is zanshin: after the arrow. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 19.285,
+      "text": "This is the Daily Karma. Today’s practice is shinrin yoku: among the trees. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 40.916,
-      "text": "Feel where your body meets the chair or floor. Soften your hands. Give gravity permission to carry a little more of your weight."
+      "end": 41.288,
+      "text": "Settle into a position that can support both ease and alertness. Relax the muscles around your eyes and let the day become quieter."
     },
     {
       "start": 58,
-      "end": 67.288,
+      "end": 66.963,
       "text": "Place attention where breathing feels clearest: the nose, chest, or belly. Receive each breath without needing to hold on to it."
     },
     {
       "start": 84,
-      "end": 95.703,
-      "text": "Zanshin is remaining mind: the attention that stays after the act is finished. In archery the posture is held after the arrow has gone. The shot is not over at release."
+      "end": 96.26,
+      "text": "Shinrin yoku is not a walk with a destination. It is letting the senses take in a place without turning any of it into a task. Nothing is covered or achieved."
     },
     {
       "start": 111,
-      "end": 122.656,
-      "text": "The archer, bow still open, eyes still down the range, long after the arrow has landed. Nothing is being achieved. The form is simply being completed."
+      "end": 121.728,
+      "text": "Standing among tall trees with the light coming down in pieces. Bark, damp earth, movement somewhere in the branches. You are not studying it; you are in it."
     },
     {
       "start": 140,
-      "end": 150.821,
+      "end": 150.217,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 177.474,
-      "text": "Finish this breath all the way out before taking the next. Let the ending be as attended as the beginning. Most of us leave early."
+      "end": 176.916,
+      "text": "Let one sense lead for a moment. Sound, probably, with the eyes closed. Let it arrive without naming it or deciding what it means."
     },
     {
       "start": 196,
-      "end": 206.077,
-      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
+      "end": 205.427,
+      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
     },
     {
       "start": 235,
-      "end": 243.266,
+      "end": 243.777,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 267.542,
-      "text": "Finish one thing properly today. Close the conversation rather than drifting out of it. Put the tool back. Stay for the last minute of something."
+      "end": 266.892,
+      "text": "Give five minutes to your senses today. Outside if you can, a window if you cannot. Look without photographing, listen without naming."
     },
     {
       "start": 283,
-      "end": 293.124,
+      "end": 292.706,
       "text": "Take one fuller breath. Feel the space beyond your body and let your eyes open in their own time. Thank you for practicing with Karma."
     }
   ]
