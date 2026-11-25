@@ -1,65 +1,65 @@
 {
-  "date": "2026-11-24",
+  "date": "2026-11-25",
   "durationSeconds": 300,
   "voiceId": "0X63EirRQmRS0K8fLhOQ",
   "narrator": "derek",
-  "title": "The Golden Seam",
-  "topic": "Kintsugi",
+  "title": "The Unfinished Bowl",
+  "topic": "Wabi-sabi",
   "tradition": "Japanese inspired practice",
   "cues": [
     {
       "start": 8,
-      "end": 18.403,
-      "text": "This is the Daily Karma. Today’s practice is kintsugi: the golden seam. Find a supported position. Let your eyes close, or rest gently on the painting."
+      "end": 20.539,
+      "text": "This is the Daily Karma. Today’s practice is wabi-sabi: the unfinished bowl. Find a supported position. Let your eyes close, or rest gently on the painting."
     },
     {
       "start": 32,
-      "end": 41.102,
-      "text": "Notice the weight of your body being held. Let the tongue rest and the shoulders fall. Allow this moment to ask nothing from you."
+      "end": 40.452,
+      "text": "Feel where your body meets the chair or floor. Soften your hands. Give gravity permission to carry a little more of your weight."
     },
     {
       "start": 58,
-      "end": 67.288,
+      "end": 67.474,
       "text": "Place attention where breathing feels clearest: the nose, chest, or belly. Receive each breath without needing to hold on to it."
     },
     {
       "start": 84,
-      "end": 96.771,
-      "text": "Kintsugi repairs broken pottery with gold. The crack is not concealed or made to look new. It is filled and traced, and becomes the most looked at part of the bowl."
+      "end": 96.585,
+      "text": "Wabi-sabi finds beauty in what is worn, uneven and unfinished. Not in spite of those qualities, but because of them. Nothing becomes lovely by becoming perfect."
     },
     {
       "start": 111,
-      "end": 123.307,
-      "text": "Picture the seam: a thin gold river running across the glaze. You can see exactly where it broke. The bowl is not pretending, and it still holds water."
+      "end": 123.446,
+      "text": "A tea bowl thrown slightly off centre, glazed unevenly, its rim a little low on one side. It has been used for two hundred years, and that is why it is treasured."
     },
     {
       "start": 140,
-      "end": 149.381,
+      "end": 149.056,
       "text": "Notice what your body is doing with these words. Soften around the eyes, the hands, and the belly. Keep only the effort needed to stay present."
     },
     {
       "start": 168,
-      "end": 176.406,
-      "text": "Bring attention to something in you that healed. Do not open it. Let it simply be there, breathing, without being called damage."
+      "end": 178.263,
+      "text": "Find something in yourself you have been treating as a draft of someone better. Let it be finished as it is, at least for the length of this breath."
     },
     {
       "start": 196,
-      "end": 207.656,
-      "text": "For a little while, I will be quiet. Let thoughts pass like weather over a wide landscape. When attention wanders, return with patience."
+      "end": 204.313,
+      "text": "Now rest in a short silence. Sounds, sensations, and thoughts may come and go. Let awareness remain spacious around them."
     },
     {
       "start": 235,
-      "end": 245.449,
+      "end": 243.499,
       "text": "Still here. Still breathing. Nothing special needs to happen. This quiet awareness is already a useful way of meeting your life."
     },
     {
       "start": 257,
-      "end": 265.916,
-      "text": "Let one repaired thing be visible today. An apology already made. A habit already changed. Let it count rather than hiding it."
+      "end": 266.149,
+      "text": "Let one imperfect thing stand today. The crooked shelf. The reply that was good enough. The day that went sideways and still ended."
     },
     {
       "start": 283,
-      "end": 294.889,
+      "end": 293.356,
       "text": "Return awareness to the room. Move slowly, keeping a trace of this steadiness with you. When ready, open your eyes. Thank you for practicing with Karma."
     }
   ]
